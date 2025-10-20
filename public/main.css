@@ -1,0 +1,383 @@
+/* ====================================================================
+   EWB Saibai EWS — public/main.css
+   A lightweight, dependency‑free stylesheet to support the landing page
+   and subsequent views. Includes:
+   • Modern CSS reset
+   • Design tokens (CSS variables)
+   • Typography, layout, utilities
+   • Components: header, nav, buttons, cards, badges, tables
+   • Responsive grid helpers
+   • Reduced‑motion + dark mode support
+   • Print styles
+   ==================================================================== */
+
+/* ---------- 1) Modern Reset ------------------------------------------------ */
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0}
+html:focus-within{scroll-behavior:smooth}
+html,body{height:100%}
+body{line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img,svg,video,canvas,iframe{display:block;max-width:100%}
+input,button,textarea,select{font:inherit}
+:where(h1,h2,h3,h4,h5,h6,p){overflow-wrap:break-word}
+#root,#__next{isolation:isolate}
+
+/* ---------- 2) Design Tokens ---------------------------------------------- */
+:root{
+  /* brand */
+  --brand: #0f172a;           /* slate-900 */
+  --brand-ink: #111827;       /* neutral title */
+  --accent: #0369a1;          /* sky-700 */
+  --accent-2: #0ea5e9;        /* sky-500 */
+  --success: #059669;         /* emerald-600 */
+  --warning: #d97706;         /* amber-600 */
+
+  /* surface */
+  --bg: #ffffff;
+  --bg-muted: #f8fafc;        /* slate-50 */
+  --panel: #ffffff;
+  --panel-elev: #ffffff;
+
+  /* text */
+  --text: #0f172a;            /* slate-900 */
+  --muted: #475569;           /* slate-600 */
+  --subtle: #64748b;          /* slate-500 */
+
+  /* borders & effects */
+  --hairline: #e2e8f0;        /* slate-200 */
+  --ring: rgba(2,132,199,.25);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md: 0 6px 16px rgba(0,0,0,.08);
+
+  /* radii & spacing */
+  --radius-sm: .5rem;
+  --radius: 1rem;             /* 16px */
+  --radius-lg: 1.25rem;       /* 20px */
+  --radius-xl: 1.5rem;        /* 24px */
+  --space-1: .25rem;          /* 4px */
+  --space-2: .5rem;           /* 8px */
+  --space-3: .75rem;          /* 12px */
+  --space-4: 1rem;            /* 16px */
+  --space-5: 1.25rem;         /* 20px */
+  --space-6: 1.5rem;          /* 24px */
+  --space-8: 2rem;            /* 32px */
+  --space-10: 2.5rem;         /* 40px */
+  --space-12: 3rem;           /* 48px */
+  --container: 72rem;         /* 1152px */
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0b1220;             /* deep slate */
+    --bg-muted:#0f172a;
+    --panel:#0f172a;
+    --panel-elev:#101827;
+    --text:#e5e7eb;           /* zinc-200 */
+    --muted:#cbd5e1;
+    --subtle:#94a3b8;
+    --hairline:#1f2937;
+    --ring: rgba(56,189,248,.35);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.6);
+    --shadow-md: 0 10px 24px rgba(0,0,0,.45);
+  }
+}
+
+/* ---------- 3) Base Typography -------------------------------------------- */
+body{
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container{max-width:var(--container);margin-inline:auto;padding-inline:var(--space-4)}
+.section{padding-block:var(--space-12)}
+
+h1{font-size:clamp(2rem, 4vw + 1rem, 3.125rem);line-height:1.1;letter-spacing:-.01em}
+h2{font-size:clamp(1.5rem, 1.5vw + 1rem, 2rem);line-height:1.15;margin-bottom:var(--space-4)}
+h3{font-size:1.25rem;line-height:1.2;margin-bottom:var(--space-3)}
+p{color:var(--muted)}
+.lead{font-size:1.125rem;color:var(--muted)}
+.small{font-size:.875rem;color:var(--subtle)}
+
+.kicker{font-size:.75rem;text-transform:uppercase;letter-spacing:.2em;color:var(--subtle);margin-bottom:var(--space-2)}
+
+/* links */
+a{color:var(--accent)}
+a:hover{color:var(--accent-2)}
+
+/* lists */
+ul{padding-left:1.25rem}
+li{margin:.25rem 0}
+
+/* ---------- 4) Layout / Header / Nav -------------------------------------- */
+.header{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:saturate(1.2) blur(6px);
+  background:color-mix(in oklab, var(--bg) 80%, transparent);
+  border-bottom:1px solid var(--hairline);
+}
+.nav{display:flex;gap:1.25rem;align-items:center}
+.nav a{color:var(--subtle);text-decoration:none}
+.nav a:hover{color:var(--text)}
+
+/* ---------- 5) Components -------------------------------------------------- */
+.card{background:var(--panel);border:1px solid var(--hairline);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+.card--elev{box-shadow:var(--shadow-md)}
+.card__body{padding:var(--space-5)}
+.card__title{font-weight:700;color:var(--text)}
+
+.badge{display:inline-flex;align-items:center;gap:.4rem;border-radius:999px;padding:.25rem .6rem;font-size:.75rem;font-weight:600;border:1px solid var(--hairline);background:var(--bg-muted);color:var(--text)}
+.badge--accent{background:color-mix(in oklab, var(--accent) 12%, var(--bg));border-color:color-mix(in oklab, var(--accent) 30%, var(--hairline));color:var(--brand)}
+
+.btn{--btn-bg:var(--brand);--btn-fg:#fff;--btn-bd:transparent;display:inline-flex;align-items:center;gap:.5rem;border-radius:calc(var(--radius)/1.25);padding:.625rem 1rem;font-weight:600;border:1px solid var(--btn-bd);background:var(--btn-bg);color:var(--btn-fg);text-decoration:none;cursor:pointer}
+.btn:hover{filter:brightness(1.05)}
+.btn:focus-visible{outline:3px solid var(--ring);outline-offset:2px}
+.btn--ghost{--btn-bg:transparent;--btn-fg:var(--text);--btn-bd:var(--hairline)}
+.btn--accent{--btn-bg:var(--accent)}
+
+.table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.table th{font-size:.75rem;text-transform:uppercase;color:var(--subtle);font-weight:700;letter-spacing:.06em}
+.table tr{background:var(--panel);border:1px solid var(--hairline)}
+.table td,.table th{padding:.75rem 1rem}
+.table tr{border-radius:var(--radius)}
+.table tr td:first-child{border-top-left-radius:var(--radius);border-bottom-left-radius:var(--radius)}
+.table tr td:last-child{border-top-right-radius:var(--radius);border-bottom-right-radius:var(--radius)}
+.table .num{text-align:right}
+
+.alert{border:1px solid var(--hairline);background:var(--bg-muted);border-radius:var(--radius);padding:var(--space-4)}
+.alert--success{border-color:color-mix(in oklab, var(--success) 40%, var(--hairline));background:color-mix(in oklab, var(--success) 8%, var(--bg-muted))}
+.alert--warn{border-color:color-mix(in oklab, var(--warning) 40%, var(--hairline));background:color-mix(in oklab, var(--warning) 8%, var(--bg-muted))}
+
+/* hero */
+.hero{background:linear-gradient(135deg, #e0f2fe 0%, #ecfeff 35%, #ecfdf5 100%)}
+.hero__panel{border-radius:var(--radius-xl);background:var(--panel);box-shadow:var(--shadow-md);border:1px solid var(--hairline);padding:var(--space-5)}
+
+/* footer */
+.footer{border-top:1px solid var(--hairline);padding-block:var(--space-8)}
+
+/* ---------- 6) Utilities --------------------------------------------------- */
+.grid{display:grid;gap:var(--space-4)}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+@media (max-width: 1024px){.grid-3,.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width: 640px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+.stack-sm>*+*{margin-top:var(--space-2)}
+.stack>*+*{margin-top:var(--space-4)}
+.stack-lg>*+*{margin-top:var(--space-6)}
+
+.pad-2{padding:var(--space-2)}
+.pad-4{padding:var(--space-4)}
+.pad-6{padding:var(--space-6)}
+.round{border-radius:var(--radius)}
+.round-lg{border-radius:var(--radius-lg)}
+.round-xl{border-radius:var(--radius-xl)}
+.shadow-sm{box-shadow:var(--shadow-sm)}
+.shadow-md{box-shadow:var(--shadow-md)}
+.border{border:1px solid var(--hairline)}
+.muted{color:var(--subtle)}
+.center{display:grid;place-items:center}
+
+/* widths */
+.w-full{width:100%}
+.max-w-prose{max-width:70ch}
+
+/* spacing helpers */
+.mt-2{margin-top:var(--space-2)}
+.mt-4{margin-top:var(--space-4)}
+.mt-6{margin-top:var(--space-6)}
+.mb-2{margin-bottom:var(--space-2)}
+.mb-4{margin-bottom:var(--space-4)}
+.mb-6{margin-bottom:var(--space-6)}
+.py-6{padding-block:var(--space-6)}
+.py-8{padding-block:var(--space-8)}
+
+/* ---------- 7) Forms ------------------------------------------------------- */
+.input,select,textarea{width:100%;background:var(--panel);border:1px solid var(--hairline);border-radius:var(--radius-sm);padding:.625rem .75rem;color:var(--text)}
+.input:focus,select:focus,textarea:focus{outline:3px solid var(--ring);outline-offset:1px}
+.label{display:block;font-weight:600;color:var(--text);margin-bottom:.5rem}
+
+/* ---------- 8) Media & Figures ------------------------------------------- */
+.figure{display:grid;gap:.5rem}
+.figure figcaption{font-size:.875rem;color:var(--subtle)}
+
+/* ---------- 9) Animations (reduced‑motion aware) -------------------------- */
+@media (prefers-reduced-motion: no-preference){
+  .fade-in{animation:fade-in .5s ease both}
+  .rise{animation:rise .6s ease both}
+  @keyframes fade-in{from{opacity:0}to{opacity:1}}
+  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+}
+
+/* ---------- 10) Print Styles ---------------------------------------------- */
+@media print{
+  :root{--bg:#fff;--panel:#fff;--text:#000;--muted:#000;--hairline:#bbb}
+  .header,.nav,.btn,.footer{display:none!important}
+  .card,.alert{border:1px solid #bbb;box-shadow:none}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.8em}
+}
+
+/* ---------- Header Alignment Fix ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: saturate(1.2) blur(6px);
+  background: color-mix(in oklab, var(--bg) 85%, transparent);
+  border-bottom: 1px solid var(--hairline);
+  padding-block: 1rem;          /* add vertical padding */
+}
+
+/* Title block spacing */
+.header h1 {
+  margin-top: 0.5rem;           /* move title down slightly */
+  font-size: 2rem;              /* larger title */
+}
+
+.header .small {
+  font-size: 1rem;              /* make “EWB Challenge 2025 — Design Area 6.1” bigger */
+}
+
+/* Navigation alignment */
+.nav {
+  display: flex;
+  gap: 2rem;                    /* wider spacing */
+  align-items: center;
+  justify-content: flex-end;    /* align across the screen */
+  flex-wrap: wrap;
+}
+
+.nav a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--subtle);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav a:hover {
+  color: var(--accent);
+}
+
+.header nav {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 0.75rem;
+  border-top: 1px solid var(--hairline);
+  padding-top: 0.75rem;
+}
+
+/* === GALLERY IMAGE FIXES === */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+  justify-items: center;
+  margin-top: 2rem;
+}
+
+.gallery figure {
+  background: #101418;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  max-width: 420px;     /* limits how wide each image box can go */
+}
+
+.gallery img {
+  width: 100%;          /* scale responsively */
+  height: auto;         /* maintain aspect ratio */
+  border-radius: 8px;
+  object-fit: contain;  /* prevents stretch */
+  max-height: 300px;    /* makes them more uniform vertically */
+  background: #0b0e12;
+  margin-bottom: 0.5rem;
+}
+
+.gallery figcaption {
+  font-size: 0.85rem;
+  color: #aaa;
+  line-height: 1.4;
+  text-align: left;
+}
+
+/* === INLINE FIGURE STYLING (for grid sections) === */
+.grid figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+  max-height: 320px;
+}
+
+.grid figure {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.grid figure figcaption {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-top: 0.3rem;
+}
+
+/* Make tipping-bucket diagram slightly larger */
+.tipping-diagram img {
+  width: 100%;
+  max-width: 650px;
+  border-radius: 10px;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Make ultrasonic JSN-SR04T image circular */
+.sensor-circle img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  background-color: #0b0e12;
+  padding: 0.5rem;
+}
+
+/* ESP32 controller photo styling */
+.controller-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.controller-img img {
+  width: clamp(320px, 60%, 520px);   /* scales responsively */
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  background: #0b0e12;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.controller-img img:hover {
+  transform: scale(1.03);           /* subtle zoom hover */
+}
+
+.controller-img figcaption {
+  font-size: 0.9rem;
+  color: #aaa;
+  text-align: center;
+  margin-top: 0.4rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
