@@ -29,7 +29,7 @@ router.get("/overview", (req, res) => {
         <div class="card__body">
           <h3 class="card__title">Design challenge</h3>
           <p class="mt-2">
-            How can Saibai residents receive <strong>timely, accurate and bilingual</strong> warnings of rising tides and heavy rainfall—without
+            How can Saibai residents receive <strong>timely, accurate and bilingual</strong> warnings of rising tides and heavy rainfall without
             depending on mainland forecasts or manual relays?
           </p>
         </div>

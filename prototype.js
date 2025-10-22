@@ -13,12 +13,12 @@ router.get("/prototype", (req, res) => {
     <p class="kicker">Prototyping overview</p>
     <h2 class="mb-4">3D-modelled design of the Saibai rainfall & tide monitoring unit</h2>
 
-    <p>The prototype integrates two measurement subsystems — a <strong>tipping-bucket rain gauge</strong> and a <strong>tide level ultrasonic sensor</strong> — mounted in weather-resistant PVC enclosures for long-term coastal deployment. All diagrams below are drawn and modelled by <em>Anh Ve Pham (2025)</em> unless otherwise cited.</p>
+    <p>The prototype integrates two measurement subsystems - a <strong>tipping-bucket rain gauge</strong> and a <strong>tide level ultrasonic sensor</strong> - mounted in weather-resistant PVC enclosures for long-term coastal deployment. All diagrams below are drawn and modelled by <em>Anh Ve Pham (2025)</em> unless otherwise cited.</p>
 
     <div class="gallery mt-4">
         <figure>
             <img src="/images/prototype1.png" alt="Top view funnel of rain gauge with dimensions" />
-            <figcaption>Rain gauge funnel — inner collector diameter 80 mm, outlet 10 mm, wall thickness 2 mm. (Anh Ve Pham, 2025)</figcaption>
+            <figcaption>Rain gauge funnel - inner collector diameter 80 mm, outlet 10 mm, wall thickness 2 mm. (Anh Ve Pham, 2025)</figcaption>
         </figure>
 
         <figure>
@@ -28,12 +28,12 @@ router.get("/prototype", (req, res) => {
 
         <figure>
             <img src="/images/prototype3.png" alt="Base internal mounting layout of rain gauge" />
-            <figcaption>Base internal mounting layout — reed switch and magnet alignment. (Anh Ve Pham, 2025)</figcaption>
+            <figcaption>Base internal mounting layout - reed switch and magnet alignment. (EricSimerman, 2020)</figcaption>
         </figure>
 
         <figure>
             <img src="/images/prototype8.png" alt="Top view of sea level sensor housing" />
-            <figcaption>Top view of ultrasonic tide sensor housing — outer radius 75 mm, inner 45 mm (PVC stilling well). (Anh Ve Pham, 2025)</figcaption>
+            <figcaption>Top view of ultrasonic tide sensor housing - outer radius 75 mm, inner 45 mm (PVC stilling well). (Anh Ve Pham, 2025)</figcaption>
         </figure>
 
         <figure>
@@ -81,7 +81,7 @@ router.get("/prototype", (req, res) => {
       <div>
         <p>The waterproof ultrasonic sensor measures water level by echo timing. It is enclosed within a 50 mm PVC stilling pipe to reduce wave noise, with the controller housed above flood level under a canopy.</p>
         <ul class="list-disc ml-5 mt-2">
-          <li>Sensor height: ~1.2 m above base → prevents submersion</li>
+          <li>Sensor height: ~1.2 m above base (prevents submersion)</li>
           <li>Echo distance range: 20–6000 mm</li>
           <li>Accuracy: ± 3 mm</li>
           <li>Power: 5 V @ 2 mA avg</li>
@@ -98,7 +98,7 @@ router.get("/prototype", (req, res) => {
 
     <ul class="list-disc ml-5 mt-2">
       <li>ADC inputs: 2 channels (rain, tide)</li>
-      <li>Outputs: relay × 2 (PA siren, beacon), UART for SMS module</li>
+      <li>Outputs: relay x 2 (PA siren, beacon), UART for SMS module</li>
       <li>Firmware written in C++, includes bilingual alert messages</li>
     </ul>
 

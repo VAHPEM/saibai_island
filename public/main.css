@@ -381,3 +381,277 @@ li{margin:.25rem 0}
   margin-left: auto;
   margin-right: auto;
 }
+
+/* === Executive Summary (rubric) helpers =============================== */
+/* Use true “point” sizes to match the marking guide */
+.exec-summary { padding-block: 1.25rem; }
+
+.h1{
+  font-family: Calibri, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16pt;            /* Heading 1, size 16, bold */
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 .5rem 0;
+}
+
+.h2{
+  font-family: Calibri, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 12pt;            /* Heading 2, size 12, bold */
+  font-weight: 700;
+  color: var(--text);
+  margin: 1.25rem 0 .25rem 0;
+}
+
+.snapshot{
+  font-style: italic;          /* “Normal text, italics” */
+  font-size: 11pt;
+  color: var(--text);          /* higher contrast than .muted */
+  margin-bottom: .5rem;
+}
+
+.italics { font-style: italic; }
+.justified {
+  text-align: justify; 
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 11pt;          /* rubric body size */
+  color: var(--text);
+  text-align: justify;      /* full justification */
+  line-height: 1.5;
+  margin-top: .25rem;
+  margin-bottom: .5rem;
+}
+
+/* Meta row (Design Areas & Keywords) */
+.meta-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .5rem;
+  margin: .75rem 0 1rem;
+  padding: .5rem .75rem;
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.meta-label{
+  font-weight: 700;
+  color: var(--text);
+  margin-right: .4rem;
+}
+
+/* Body text inside exec summary should be readable */
+.exec-summary p{
+  font-size: 11pt;            /* “Normal text, size 11” */
+  color: var(--text);         /* override global muted body color */
+  margin: .25rem 0 .5rem;
+}
+
+/* Bullet lists used in Overview/Considerations/Cost */
+.bullets{
+  margin: .25rem 0 .75rem 1.25rem;
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 11pt;          /* rubric body size */
+  color: var(--text);
+  text-align: justify;      /* full justification */
+  line-height: 1.5;
+  margin-top: .25rem;
+  margin-bottom: .5rem;
+}
+.bullets li{
+  margin: .25rem 0;
+  color: var(--text);         /* readable bullets */
+}
+
+/* Figures in the summary */
+.figure{
+  margin: .75rem 0;
+  text-align: center;
+}
+.figure img{
+  max-width: 100%;
+  height: auto;
+  border-radius: .5rem;
+  border: 1px solid var(--hairline);
+}
+.figure figcaption{
+  font-size: 10pt;
+  color: var(--subtle);
+  margin-top: .25rem;
+}
+
+/* === HEADER AS PROJECT META =========================================== */
+.site-header{
+  background: var(--panel);
+  border-bottom: 1px solid var(--hairline);
+  padding: var(--space-6) var(--space-4);
+  box-shadow: var(--shadow-sm);
+}
+.header-meta{
+  text-align: center;
+  margin-bottom: var(--space-4);
+}
+.site-title{
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: .25rem;
+}
+.meta-sub{
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.meta-sub .keywords{
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* === LANDING PAGE LAYOUT POLISH ===================================== */
+.exec-summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);     /* vertical rhythm between cards */
+  margin-top: var(--space-8);
+}
+
+/* section cards (reuse from previous pages) */
+.section-card {
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5) var(--space-6);
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+.section-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* make headings align nicely */
+.section-card h2 {
+  margin-top: 0;
+  margin-bottom: var(--space-3);
+}
+
+/* add breathing room between bullets and text */
+.section-card p + ul,
+.section-card ul + p {
+  margin-top: var(--space-3);
+}
+
+/* gallery alignment fix */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+.gallery figure {
+  background: var(--bg-muted);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  text-align: center;
+}
+.gallery figcaption {
+  font-size: .85rem;
+  color: var(--subtle);
+  margin-top: .5rem;
+}
+
+.header h1{
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16pt !important;   /* override earlier 2rem + global h1 clamp */
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  margin: 0;
+  color: var(--text);
+}
+
+/* Snapshot line — Calibri 11 pt, italics (“Normal text”) */
+.header .small{
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 11pt !important;
+  font-style: italic;
+  line-height: 1.4;
+  margin-top: .25rem;
+  margin-bottom: .75rem;
+  color: var(--text);            /* not muted */
+}
+
+/* Optional: make the nav match body size (not huge) */
+.header .nav a{
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 11pt;
+}
+
+/* === Eyebrow / section labels (match 'PROJECT CONTEXT' style) ==== */
+.eyebrow{
+  font-size:.75rem;              /* small */
+  letter-spacing:.18em;          /* tracking */
+  text-transform:uppercase;
+  font-weight:600;
+  color:var(--subtle);           /* soft white in dark mode */
+  margin-bottom:.5rem;
+  display:block;
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 12pt !important;   /* rubric size */
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+  text-align: left;
+}
+
+/* Optional: subtle accent bar to the left */
+.eyebrow--bar{
+  position:relative;
+  padding-left:.75rem;
+}
+.eyebrow--bar::before{
+  content:"";
+  position:absolute;left:0;top:.2em;bottom:.2em;
+  width:3px;border-radius:2px;
+  background:color-mix(in oklab, var(--accent-2) 70%, var(--hairline));
+}
+
+/* Tighten headings under labels inside cards */
+.section-card .eyebrow + .h2,
+.section-card .eyebrow + h2{
+  margin-top:0;
+}
+
+.exec-summary:first-of-type {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.meta-grid {
+  border-top: 2px solid color-mix(in oklab, var(--accent-2) 40%, transparent);
+}
+
+.exec-summary > .eyebrow {
+  display: block;
+  text-align: left;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  margin-bottom: .75rem;
+  padding-left: .75rem;
+  position: relative;
+}
+
+.exec-summary > .eyebrow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .25em;
+  bottom: .25em;
+  width: 3px;
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--accent-2) 70%, var(--hairline));
+  display: none;
+}

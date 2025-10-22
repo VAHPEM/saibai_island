@@ -92,7 +92,7 @@ router.get(["/cost", "/cost-and-funding"], (req, res) => {
       </div></div>
       <div class="card"><div class="card__body">
         <h3 class="card__title">Deployment & spares</h3>
-        <p class="mt-2">Install, freight, spares kit (≈ 35%) → <strong>$650</strong></p>
+        <p class="mt-2">Install, freight, spares kit (≈ 35%) = <strong>$650</strong></p>
         <ul class="list-disc ml-5 mt-2">
           <li>Travel & consumables</li>
           <li>1 hot‑spare per sensor type</li>
@@ -100,7 +100,7 @@ router.get(["/cost", "/cost-and-funding"], (req, res) => {
       </div></div>
       <div class="card"><div class="card__body">
         <h3 class="card__title">Comms integration</h3>
-        <p class="mt-2">PA/siren & radio linkage + SMS gateway (year 1) → <strong>$900</strong></p>
+        <p class="mt-2">PA/siren & radio linkage + SMS gateway (year 1) = <strong>$900</strong></p>
         <ul class="list-disc ml-5 mt-2">
           <li>Existing PA/radio used where possible</li>
           <li>SMS gateway service fees</li>
@@ -127,9 +127,9 @@ router.get(["/cost", "/cost-and-funding"], (req, res) => {
       <div class="card"><div class="card__body">
         <h3 class="card__title">Grants</h3>
         <ul class="list-disc ml-5 mt-2">
-          <li>Disaster Ready Fund (NEMA) — resilience infrastructure</li>
-          <li>FRRR — Small & Vital — remote community safety projects</li>
-          <li>Telstra Connected Communities — digital inclusion & safety</li>
+          <li>Disaster Ready Fund (NEMA) - resilience infrastructure</li>
+          <li>FRRR - Small & Vital - remote community safety projects</li>
+          <li>Telstra Connected Communities - digital inclusion & safety</li>
         </ul>
       </div></div>
 
@@ -146,7 +146,7 @@ router.get(["/cost", "/cost-and-funding"], (req, res) => {
         <ul class="list-disc ml-5 mt-2">
           <li>Low O&M (&lt; $100/year)</li>
           <li>5‑year affordability well within council budgets</li>
-          <li>Scalable to the $200k–$300k program if grant‑funded</li>
+          <li>Scalable to the $200k-$300k program if grant‑funded</li>
         </ul>
       </div></div>
     </div>
