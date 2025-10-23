@@ -7,6 +7,10 @@ import implementationRouter from "./implementation.js";
 import costFundingRouter from "./cost_funding.js";
 import prototypeRouter from "./prototype.js";
 import referencesRouter from "./references.js";
+import groupDeclarationRouter from "./group_declaration.js";
+import designSolutionRouter from "./design_solution.js";
+import otherConsiderationsRouter from "./other_considerations.js";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -108,6 +112,12 @@ app.use(prototypeRouter);
 
 app.use(referencesRouter);
 
+app.use(groupDeclarationRouter);
+
+app.use(designSolutionRouter);
+
+app.use(otherConsiderationsRouter);
+
 // (Optional) stub routes so your nav doesn’t 404 while you fill pages
 app.get("/overview", (req, res) =>
   res.render("index", { title: "Overview", body: "<h2>Overview</h2><p class='muted'>Coming soon.</p>" })
@@ -123,6 +133,15 @@ app.get("/references", (req, res) =>
 );
 app.get("/appendices", (req, res) =>
   res.render("index", { title: "Appendices", body: "<h2>Appendices</h2><p class='muted'>Charter, Minutes, Prompt Log.</p>" })
+);
+
+app.get("/group_declaration", (req, res) => res.redirect(301, "/group-declaration"));
+
+app.get("/design-solution", (req, res) =>
+  res.render("index", {
+    title: "Design Solution",
+    body: "<h2>Design Solution</h2><p class='muted'>Page loading...</p>"
+  })
 );
 
 const PORT = process.env.PORT || 3000;

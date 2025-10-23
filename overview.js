@@ -1,112 +1,99 @@
-// overview.js — Express router for the Overview page (ESM)
-// Usage in index.js (server):
-//   import overviewRouter from "./overview.js";
-//   app.use(overviewRouter);
+// overview.js — Express router for the Overview page (EWB Saibai EWS)
 
 import { Router } from "express";
-
 const router = Router();
 
 router.get("/overview", (req, res) => {
   const body = `
-  <section class="section">
-    <p class="kicker">Project context</p>
-    <h2 class="mb-4">Saibai Island — risks & needs</h2>
-    <div class="grid grid-2">
-      <div class="stack">
-        <p>
-          Saibai Island lies ~150 km north of Australia and ~4 km from Papua New Guinea. With around 500 residents—most Torres Strait Islanders—
-          the island is extremely low-lying (highest point ~1.7 m above sea level) and exposed to king tides, storm surges and flooding.
-          Local government: Torres Strait Island Regional Council (TSIRC).
-        </p>
-        <ul class="list-disc ml-5">
-          <li>Frequent flooding and coastal inundation threaten homes and food gardens.</li>
-          <li>Alerts currently rely on email/radio from the mainland, causing delays and message loss in large events.</li>
-          <li>Digital divide: elders and non-digital users may miss time‑critical warnings.</li>
-        </ul>
-      </div>
-      <div class="card card--elev">
-        <div class="card__body">
-          <h3 class="card__title">Design challenge</h3>
-          <p class="mt-2">
-            How can Saibai residents receive <strong>timely, accurate and bilingual</strong> warnings of rising tides and heavy rainfall without
-            depending on mainland forecasts or manual relays?
-          </p>
-        </div>
+  <section class="exec-summary">
+    <!-- Project Details -->
+    <span class="eyebrow eyebrow--bar">1. PROJECT DETAILS</span>
+    <div class="section-card fade-in">
+      <p class="justified">
+        <strong>Saibai Island</strong>, located in the Torres Strait, faces frequent tidal flooding and heavy rainfall that threaten
+        homes, transport, and essential services. Current warning systems rely on mainland networks that often fail during storms, leaving residents vulnerable.
+      </p>
+
+      <p class="justified">
+        The <strong>Saibai ICT Early Warning System (EWS)</strong> aims to provide an <strong>automated, bilingual, and solar-powered alert network</strong>
+        that enables local hazard monitoring and rapid dissemination of tide and rainfall warnings.
+      </p>
+
+      <div class="meta-grid">
+        <p><strong>Design Area:</strong> 6.1 — Early Warning Systems</p>
+        <p><strong>Project Opportunity:</strong> Strengthening the integration of hazard monitoring, forecasting, communication, and preparedness activities.</p>
+        <p><strong>Needs Statement:</strong> How might we design a reliable, bilingual early-warning system for Saibai Island that operates independently of mainland infrastructure?</p>
       </div>
     </div>
-  </section>
 
-  <section class="section">
-    <p class="kicker">Our solution</p>
-    <h2 class="mb-4">Local, solar‑powered IoT early warning system</h2>
-    <div class="grid grid-3">
-      <div class="card"><div class="card__body">
-        <h3 class="card__title">Tide sensor (JSN‑SR04T)</h3>
-        <p class="mt-2">Waterproof ultrasonic module inside a PVC stilling well computes tide height from echo time.</p>
-      </div></div>
-      <div class="card"><div class="card__body">
-        <h3 class="card__title">Rain gauge (tipping‑bucket)</h3>
-        <p class="mt-2">Counts bucket tips to measure rainfall (mm/tip) using a magnet + reed switch.</p>
-      </div></div>
-      <div class="card"><div class="card__body">
-        <h3 class="card__title">ESP32 controller</h3>
-        <p class="mt-2">Filters noise, compares to thresholds, builds bilingual payloads and triggers alerts automatically.</p>
-      </div></div>
+    <!-- Background -->
+    <span class="eyebrow eyebrow--bar">2. BACKGROUND</span>
+    <div class="section-card fade-in">
+      <p class="justified">
+        Saibai’s low elevation and remoteness from mainland Australia make it highly susceptible to rising sea levels, king tides, and
+        intense tropical rainfall. The existing emergency alerts depend on limited mobile coverage and manual radio broadcasts,
+        which are inconsistent and often delayed.
+      </p>
+
+      <ul class="bullets">
+        <li><strong>Context:</strong> A low-lying island community exposed to recurrent coastal flooding and extreme weather.</li>
+        <li><strong>Significance:</strong> Reliable, locally managed alerts reduce risks to homes, infrastructure, and community safety.</li>
+        <li><strong>Current Efforts:</strong> SMS and radio warnings from mainland meteorological offices; these lack real-time local data.</li>
+        <li><strong>Gap:</strong> No locally autonomous system for continuous monitoring and bilingual dissemination.</li>
+        <li><strong>Goal:</strong> Create a resilient, locally operated solution that complements national systems and empowers Saibai residents.</li>
+      </ul>
     </div>
 
-    <div class="grid grid-3 mt-6">
-      <div class="card"><div class="card__body">
-        <h3 class="card__title">Alert channels</h3>
-        <ul class="mt-2 list-disc ml-5">
-          <li>PA/Siren cut‑ins for outdoors & gatherings</li>
-          <li>SMS broadcast for mobile coverage</li>
-          <li>4MW radio interrupts for broad reach</li>
-        </ul>
-      </div></div>
-      <div class="card"><div class="card__body">
-        <h3 class="card__title">Power & enclosure</h3>
-        <p class="mt-2">Solar panel + battery; salt‑resistant housing and gaskets for coastal conditions.</p>
-      </div></div>
-      <div class="card"><div class="card__body">
-        <h3 class="card__title">Operations</h3>
-        <p class="mt-2">Ranger‑led inspections, simple calibration workflow, spare kits and SMS fault notifications.</p>
-      </div></div>
+    <!-- Problem Description -->
+    <span class="eyebrow eyebrow--bar">3. PROBLEM DESCRIPTION</span>
+    <div class="section-card fade-in">
+      <p class="justified">
+        <strong>User Needs Statement:</strong> Saibai residents and rangers need an affordable and self-sustaining system that can
+        automatically detect rising tides and heavy rainfall, and issue clear bilingual alerts through multiple communication channels.
+      </p>
+      <p class="justified">
+        <strong>Ideal Outcome:</strong> A network of solar-powered IoT sensors that deliver timely, accurate, and inclusive alerts via
+        siren, SMS, and radio—ensuring community safety even when external communication fails.
+      </p>
     </div>
-  </section>
 
-  <section class="section">
-    <p class="kicker">How it works</p>
-    <h2 class="mb-4">From data to alerts in seconds</h2>
-    <div class="grid grid-3">
-      <div class="card"><div class="card__body">
-        <h3 class="card__title"> Measure</h3>
-        <p class="mt-2">Ultrasonic tide sensor computes water level; tipping‑bucket counts rainfall in mm/tip.</p>
-      </div></div>
-      <div class="card"><div class="card__body">
-        <h3 class="card__title"> Decide</h3>
-        <p class="mt-2">ESP32 filters noise and compares readings to thresholds to detect unsafe conditions.</p>
-      </div></div>
-      <div class="card"><div class="card__body">
-        <h3 class="card__title"> Alert</h3>
-        <p class="mt-2">Bilingual payload is sent to PA/Siren, SMS and radio, reaching the whole community quickly.</p>
-      </div></div>
-    </div>
-  </section>
+    <!-- Design Criteria -->
+    <span class="eyebrow eyebrow--bar">4 DESIGN CRITERIA</span>
+    <div class="section-card grid grid-2 fade-in">
+      <div class="criteria-box">
+        <h3>Accuracy & Reliability</h3>
+        <p>The warning system must provide precise sensor readings and consistent operation under tropical weather.</p>
+        <p class="criteria-just">Ensures dependable alerts that inform evacuation and response decisions.</p>
+      </div>
 
-  <section class="section">
-    <p class="kicker">Why it fits Saibai</p>
-    <h2 class="mb-4">Benefits for the community</h2>
-    <div class="grid grid-4">
-      <div class="card"><div class="card__body"><strong>Seconds to alert</strong><p class="mt-2 muted">Automation removes human delay during fast‑rising tides.</p></div></div>
-      <div class="card"><div class="card__body"><strong>Inclusive comms</strong><p class="mt-2 muted">Bilingual SMS/PA ensures elders and non‑digital users are covered.</p></div></div>
-      <div class="card"><div class="card__body"><strong>Built to last</strong><p class="mt-2 muted">Solar power, corrosion‑resistant housings and ranger checks maintain uptime.</p></div></div>
-      <div class="card"><div class="card__body"><strong>Lower losses</strong><p class="mt-2 muted">Earlier action reduces damage costs and protects livelihoods.</p></div></div>
+      <div class="criteria-box">
+        <h3>Availability to Local Community</h3>
+        <p>The system must be simple to operate and maintain by local rangers using available tools.</p>
+        <p class="criteria-just">Empowers Saibai residents to independently manage and sustain the EWS.</p>
+      </div>
+
+      <div class="criteria-box">
+        <h3>Affordability</h3>
+        <p>Use low-cost, readily available components such as ESP32 boards and PVC-based housings.</p>
+        <p class="criteria-just">Ensures scalability and long-term sustainability within community budgets.</p>
+      </div>
+
+      <div class="criteria-box">
+        <h3>Timeliness</h3>
+        <p>Alerts must reach users within minutes of threshold detection via multiple communication methods.</p>
+        <p class="criteria-just">Critical for minimizing damage and maximizing safety response time.</p>
+      </div>
+
+      <div class="criteria-box">
+        <h3>Sustainability</h3>
+        <p>Operate entirely on solar energy and use corrosion-resistant materials suited for tropical environments.</p>
+        <p class="criteria-just">Reduces maintenance frequency and environmental footprint.</p>
+      </div>
     </div>
   </section>
   `;
 
-  res.render("index", { title: "Overview", body });
+  res.render("index", { title: "Overview — EWB Saibai EWS", body });
 });
 
 export default router;

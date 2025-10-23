@@ -655,3 +655,239 @@ li{margin:.25rem 0}
   background: color-mix(in oklab, var(--accent-2) 70%, var(--hairline));
   display: none;
 }
+
+/* === Acknowledgement of Country Styling ========================== */
+.ack-heading {
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 16pt;                /* larger than kicker, matches Heading 1 */
+  color: var(--text);
+  text-transform: none;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+  display: block;
+  border-left: 4px solid color-mix(in oklab, var(--accent-2) 60%, var(--hairline));
+  padding-left: 0.75rem;
+}
+
+/* === Acknowledgement of Country Text ============================== */
+.ack-card p {
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 12pt;           /* Increase text size */
+  line-height: 1.6;          /* Add breathing room */
+  color: var(--text);        /* Use full text contrast */
+  text-align: justify;       /* Keep academic style */
+}
+
+/* === Overview Page Enhancements ====================================== */
+
+/* subtle divider accent for section labels */
+.eyebrow--bar {
+  border-left: 4px solid color-mix(in oklab, var(--accent-2) 60%, var(--hairline));
+  padding-left: .75rem;
+}
+
+/* card polish */
+.section-card {
+  background: color-mix(in oklab, var(--panel) 98%, var(--bg-muted));
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5) var(--space-6);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.section-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* grid layout for criteria boxes */
+.criteria-box {
+  background: var(--bg-muted);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 1.25rem 1rem;
+  box-shadow: var(--shadow-sm);
+}
+.criteria-box h3 {
+  font-family: "Calibri", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 12pt;
+  color: var(--accent);
+  margin-bottom: .25rem;
+}
+.criteria-box p {
+  font-family: "Calibri", system-ui, sans-serif;
+  font-size: 11pt;
+  color: var(--text);
+  margin-bottom: .4rem;
+  text-align: justify;
+}
+.criteria-just {
+  font-style: italic;
+  color: var(--subtle);
+  font-size: 10.5pt;
+}
+
+/* subtle entrance animation */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in { animation: fadein .6s ease both; }
+  @keyframes fadein { from {opacity: 0; transform: translateY(6px);} to {opacity: 1; transform: translateY(0);} }
+}
+
+/* === DESIGN SOLUTION STYLING ======================================= */
+.figure img {
+  border-radius: var(--radius);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: .5rem;
+}
+
+.figure figcaption {
+  font-family: "Calibri", system-ui, sans-serif;
+  font-size: 10pt;
+  color: var(--subtle);
+  text-align: center;
+  line-height: 1.4;
+}
+
+h3 {
+  font-family: "Calibri", system-ui, sans-serif;
+  font-size: 12pt;
+  font-weight: 700;
+  margin-top: 1rem;
+  color: var(--text);
+}
+
+/* criteria table style (if you later add HTML version of matrix) */
+.table-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: 1.25rem;
+  font-family: "Calibri", system-ui, sans-serif;
+}
+.table-matrix th, .table-matrix td {
+  border: 1px solid var(--hairline);
+  padding: .5rem .75rem;
+  text-align: center;
+}
+.table-matrix th {
+  background: color-mix(in oklab, var(--accent-2) 20%, var(--panel));
+  color: var(--text);
+  font-weight: 700;
+}
+.table-matrix td {
+  background: var(--panel);
+  color: var(--text);
+}
+
+/* === Decision Matrix Table Styling === */
+.table-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Calibri", system-ui, sans-serif;
+  font-size: 11pt;
+  margin: 1.25rem 0;
+}
+
+.table-matrix th, .table-matrix td {
+  border: 1px solid var(--hairline);
+  padding: .6rem;
+  text-align: center;
+}
+
+.table-matrix th {
+  background: #174a57;
+  color: white;
+  font-weight: 600;
+}
+
+.table-matrix .option {
+  background: #0f2e38;
+  color: white;
+  font-weight: 700;
+  text-align: left;
+  padding-left: 1rem;
+}
+
+.table-matrix td {
+  background: #275965;
+  color: white;
+}
+
+.matrix-score {
+  color: #ff4a4a;
+  font-weight: 600;
+}
+
+.table-matrix strong {
+  color: #fff;
+  font-size: 12pt;
+}
+
+/* === High-level Flow Diagram (inline SVG) ============================= */
+.flow svg { width: 100%; max-width: 980px; height: auto; margin-inline: auto; display: block; }
+.flow .node rect { fill: url(#panel); stroke: var(--hairline); stroke-width: 1.25; }
+.flow .title { font: 700 12pt "Calibri", system-ui, sans-serif; text-anchor: middle; fill: #fff; }
+.flow .item { font: 11pt "Calibri", system-ui, sans-serif; text-anchor: middle; fill: #e5e7eb; }
+.flow .badge rect { fill: rgba(255,255,255,.14); stroke: rgba(255,255,255,.35); }
+.flow .badge text { font: 700 9pt "Calibri", system-ui, sans-serif; text-anchor: middle; fill: #fff; }
+
+/* arrows */
+.flow .arrows line { stroke: #94d2ef; stroke-width: 3; marker-end: url(#arrow); }
+
+/* legend */
+.flow .legend rect { fill: #0b1220; stroke: var(--hairline); opacity: .9; }
+.flow .legend-title { font: 700 12pt "Calibri", system-ui, sans-serif; fill: #e5e7eb; }
+.flow .legend-item { font: 10.5pt "Calibri", system-ui, sans-serif; fill: #cbd5e1; }
+
+/* reduce-motion */
+@media (prefers-reduced-motion:no-preference){
+  .flow .node, .flow .arrows line { transition: transform .2s ease; }
+  .flow .node:hover { transform: translateY(-2px); }
+}
+
+/* === HEADER FULL-WIDTH FIX ==================================== */
+.header {
+  width: 100%;
+  background-color: var(--bg-dark); /* keep existing header background */
+}
+
+.header .container {
+  max-width: none;     /* removes side restriction */
+  padding: 0 2rem;     /* optional inner padding */
+  margin: 0;           /* remove any centering margin */
+  width: 100%;
+}
+
+.nav a {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: var(--muted-text);
+}
+
+.nav a:hover {
+  color: var(--accent);
+}
+
+/* === NAVIGATION INLINE FIX ===================================== */
+.nav {
+  display: flex;
+  flex-wrap: nowrap;          /* keep everything on one line */
+  justify-content: center;    /* center all items horizontally */
+  align-items: center;
+  gap: 1.5rem;                /* space between items */
+  overflow-x: auto;           /* allow scroll on very small screens */
+  white-space: nowrap;        /* prevent text wrapping */
+}
+
+.nav a {
+  color: var(--muted-text);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+}
+
+.nav a:hover {
+  color: var(--accent);
+}

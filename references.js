@@ -15,9 +15,10 @@ router.get("/references", (req, res) => {
 
     <div class="card"><div class="card__body">
       <ol class="list-decimal ml-5 space-y-3">
-        <li>Cuba, M., Durán, J., & Sanchiz, C. (2025). <em>Resilient Voices: Language as a Pillar in Indigenous Risk Management</em> – CLEAR Global. CLEAR Global. <a href="https://clearglobal.org/resilient-voices-language-as-a-pillar-in-indigenous-risk-management/" target="_blank">https://clearglobal.org/resilient-voices-language-as-a-pillar-in-indigenous-risk-management/</a></li>
 
         <li>Bakker, B. (2021). <em>How to use an HC-SR04 Ultrasonic Distance Sensor with Arduino</em>. Makerguides. <a href="https://saliterman.umn.edu/sites/saliterman.umn.edu/files/files/general/hc-sr04_ultrasonic_sensor_with_arduino_tutorial_5_examples.pdf" target="_blank">PDF</a></li>
+        
+        <li>Cuba, M., Durán, J., & Sanchiz, C. (2025). <em>Resilient Voices: Language as a Pillar in Indigenous Risk Management</em> – CLEAR Global. CLEAR Global. <a href="https://clearglobal.org/resilient-voices-language-as-a-pillar-in-indigenous-risk-management/" target="_blank">https://clearglobal.org/resilient-voices-language-as-a-pillar-in-indigenous-risk-management/</a></li>
 
         <li>Department of Transport and Main Roads. (2024). <em>BlueBook 2024 Torres Strait</em>.</li>
 
