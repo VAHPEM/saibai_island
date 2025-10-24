@@ -91,6 +91,72 @@ router.get("/overview", (req, res) => {
       </div>
     </div>
   </section>
+  
+      <!-- HOW IT WORKS -->
+    <span class="eyebrow eyebrow--bar">5. HOW IT WORKS</span>
+    <div id="how-it-works" class="section-card grid grid-2 fade-in">
+      <div>
+        <h3>End-to-end flow</h3>
+        <ol class="steps">
+          <li><strong>Sensors</strong> capture local <em>water level</em> and <em>rainfall</em>.</li>
+          <li><strong>Processor</strong> filters readings and compares them to thresholds.</li>
+          <li><strong>Trigger</strong> builds a bilingual alert payload with level, location, time, and recommended action.</li>
+          <li><strong>Auto-send</strong> via PA/siren, SMS, and 4MW radio cut-ins.</li>
+          <li><strong>Community</strong> receives timely local warnings—within seconds.</li>
+        </ol>
+        <p class="micro justified">Mainland forecasts can miss local effects; on-island sensors provide the real water level and rainfall.</p>
+      </div>
+      <figure class="media">
+        <img src="/img/how-it-works/how-it-works-flow.png" alt="Flow diagram of the Saibai EWS from sensors to community alerts" loading="lazy">
+        <figcaption>System flow at a glance.</figcaption>
+      </figure>
+    </div>
+
+    <!-- SENSORS -->
+    <span class="eyebrow eyebrow--bar">6. SENSORS</span>
+    <div class="section-card grid grid-2 fade-in">
+      <div>
+        <h3>Tide sensor (ultrasonic)</h3>
+        <ul class="bullets">
+          <li>Sends echo pulses and measures time-of-flight to the water surface.</li>
+          <li>Farther echo → <em>smaller</em> tide; closer echo → <em>bigger</em> tide.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Rain sensor (tipping-bucket)</h3>
+        <ul class="bullets">
+          <li>Funnel fills a seesaw bucket; each tip equals a fixed millimetres of rain.</li>
+          <li>Fewer tips → light rain; more tips → heavy rain.</li>
+        </ul>
+      </div>
+      <figure class="media col-span-2">
+        <img src="/img/how-it-works/sensors.png" alt="Ultrasonic tide sensor and tipping-bucket rain gauge" loading="lazy">
+        <figcaption>Hardware used for local measurements.</figcaption>
+      </figure>
+    </div>
+
+    <!-- CALCULATION FORMULAS -->
+    <span class="eyebrow eyebrow--bar">7. CALCULATION FORMULAS</span>
+    <div class="section-card grid grid-2 fade-in">
+      <div>
+        <h4>Tide height</h4>
+        <p><strong>Distance (cm)</strong> = (T (μs) × speed of sound (cm/μs)) ÷ 2</p>
+        <p><strong>Tide height (cm)</strong> = H<sub>ref</sub> (cm) − Distance (cm)</p>
+        <p class="micro">H<sub>ref</sub> is the sensor’s mounting height above the local zero level.</p>
+        <p class="warn">Warn when Tide height &gt; 386&nbsp;cm (HAT).</p>
+      </div>
+      <div>
+        <h4>Rain accumulation</h4>
+        <p><strong>mm per tip</strong> = (bucket volume (mL) ÷ funnel area (cm²)) × 10</p>
+        <p><strong>Rain total (mm)</strong> = N × mm per tip</p>
+        <p class="warn">Warn when daily total &gt; 120&nbsp;mm.</p>
+      </div>
+      <figure class="media col-span-2">
+        <img src="/img/how-it-works/formulas.png" alt="Formulas for tide height and rain accumulation" loading="lazy">
+        <figcaption>From device physics to thresholds.</figcaption>
+      </figure>
+    </div>
+  </section>
   `;
 
   res.render("index", { title: "Overview — EWB Saibai EWS", body });
