@@ -23,7 +23,7 @@ router.get("/group-declaration", (req, res) => {
       <p class="justified">
         This declaration confirms that <strong>all website development, content writing, design layout, prototype diagrams,
         and documentation</strong> for the <em>EWB Challenge 2025 - Saibai Island Early Warning System</em> were
-        completed solely by <strong>Anh Ve Pham (26153926)</strong>.
+        completed by <strong>Anh Ve Pham (26153926) and Nguyen Lam Thanh Dat (26150906)</strong>.
       </p>
       <p class="justified">
         No other individuals contributed to the website, report, or any associated deliverables.
@@ -36,10 +36,17 @@ router.get("/group-declaration", (req, res) => {
       <h3 class="card__title">Anh Ve Pham (26153926)</h3>
       <ul class="list-disc ml-5 mt-2">
         <li>Developed full Express + EJS web application</li>
-        <li>Authored all written content and bilingual text</li>
+        <li>Authored written content and bilingual text</li>
         <li>Created and annotated prototype diagrams (3D models + CAD)</li>
         <li>Designed and styled <code>main.css</code> layout and responsive theme</li>
         <li>Compiled APA 7 references and document structure</li>
+      </ul>
+      <h3 class="card__title">Nguyen Lam Thanh Dat (26150906)</h3>
+      <ul class="list-disc ml-5 mt-2">
+        <li>Edited Express + EJS web application</li>
+        <li>Authored written content and bilingual text</li>
+        <li>Created the design's functions</li>
+        <li>Designed and styled <code>main.css</code> layout and responsive theme</li>
       </ul>
     </div></div>
 
