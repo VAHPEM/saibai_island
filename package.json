@@ -1,0 +1,32 @@
+{
+    "name": "ewb-saibai-ews",
+    "version": "1.0.0",
+    "description": "EWB Challenge 2025 — Saibai Island Early Warning System website (UTS Group Project)",
+    "type": "module",
+    "private": true,
+    "scripts": {
+      "start": "node index.js",
+      "dev": "nodemon index.js",
+      "build": "echo \"No build step for Express/EJS\""
+    },
+    "dependencies": {
+      "express": "^5.1.0",
+      "ejs": "^3.1.10"
+    },
+    "devDependencies": {
+      "nodemon": "^3.1.0"
+    },
+    "engines": {
+      "node": ">=18"
+    },
+    "keywords": [
+      "EWB",
+      "Saibai Island",
+      "Early Warning System",
+      "UTS",
+      "IoT Sensors",
+      "Website"
+    ],
+    "author": "UTS Group 1 — Tutorial 9 (Anh Ve Pham et al.)",
+    "license": "MIT"
+  }

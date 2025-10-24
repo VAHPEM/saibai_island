@@ -1,0 +1,1320 @@
+/* ====================================================================
+   EWB Saibai EWS — public/main.css
+   A lightweight, dependency-free stylesheet to support the landing page
+   and subsequent views. Includes:
+   • Modern CSS reset
+   • Design tokens (CSS variables)
+   • Typography, layout, utilities
+   • Components: header, nav, buttons, cards, badges, tables
+   • Responsive grid helpers
+   • Reduced-motion + dark mode support
+   • Print styles
+   ==================================================================== */
+
+/* ---------- 1) Modern Reset ------------------------------------------------ */
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0}
+html:focus-within{scroll-behavior:smooth}
+html,body{height:100%}
+body{line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img,svg,video,canvas,iframe{display:block;max-width:100%}
+input,button,textarea,select{font:inherit}
+:where(h1,h2,h3,h4,h5,h6,p){overflow-wrap:break-word}
+#root,#__next{isolation:isolate}
+
+/* ---------- 2) Design Tokens ---------------------------------------------- */
+/* Base tokens (fallbacks) */
+:root{
+  /* brand */
+  --brand: #0f172a;           /* slate-900 */
+  --brand-ink: #111827;
+  --accent: #0369a1;          /* sky-700 */
+  --accent-2:#0ea5e9;         /* sky-500 */
+  --success:#059669;          /* emerald-600 */
+  --warning:#d97706;          /* amber-600 */
+
+  /* surface */
+  --bg:#ffffff;
+  --bg-muted:#f8fafc;         /* slate-50 */
+  --panel:#ffffff;
+  --panel-elev:#ffffff;
+
+  /* text */
+  --text:#0f172a;             /* slate-900 */
+  --muted:#475569;            /* slate-600 */
+  --subtle:#64748b;           /* slate-500 */
+
+  /* borders & effects */
+  --hairline:#e2e8f0;         /* slate-200 */
+  --ring:rgba(2,132,199,.25);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 6px 16px rgba(0,0,0,.08);
+
+  /* radii & spacing */
+  --radius-sm:.5rem;
+  --radius:1rem;              /* 16px */
+  --radius-lg:1.25rem;        /* 20px */
+  --radius-xl:1.5rem;         /* 24px */
+  --space-1:.25rem;           /* 4px */
+  --space-2:.5rem;            /* 8px */
+  --space-3:.75rem;           /* 12px */
+  --space-4:1rem;             /* 16px */
+  --space-5:1.25rem;          /* 20px */
+  --space-6:1.5rem;           /* 24px */
+  --space-8:2rem;             /* 32px */
+  --space-10:2.5rem;          /* 40px */
+  --space-12:3rem;            /* 48px */
+  --container:72rem;          /* 1152px */
+
+  /* extras used later in file */
+  --bg-gradient: linear-gradient(180deg, #eef6f7 0%, #ffffff 60%);
+  --bg-dark: var(--panel);    /* header bg fallback */
+  --muted-text: var(--subtle);
+}
+
+/* ==== SUNSET THEME (active when <html data-theme="sunset">) ==== */
+:root[data-theme="sunset"]{
+  --accent:#fb7185;          /* rose-400 */
+  --accent-2:#f97316;        /* orange-500 */
+  --brand:#7f1d1d;
+  --text:#111827;
+  --muted:#4b5563;
+  --subtle:#6b7280;
+  --bg:#fffaf7;
+  --bg-muted:#fff1eb;
+  --panel:#ffffff;
+  --panel-elev:#fff7f2;
+  --hairline:#fde2d6;
+  --ring:rgba(249,115,22,.32);
+  --bg-gradient: linear-gradient(180deg, #fff7ed 0%, #fff 70%);
+  --bg-dark:#fff7ef;         /* header’s custom background */
+  --muted-text:#000000;      /* nav link default */
+}
+
+/* ========= Nav tab palette (DEFAULT / Ocean theme) ========= */
+:root{
+  /* tab primary/secondary + readable text on tinted bg */
+  --tab-1: #0ea5e9;   /* sky-500 */
+  --tab-2: #06b6d4;   /* cyan-500 */
+  --tab-text: #083344;/* deep teal for contrast */
+}
+
+/* Optional: if user prefers dark AND you aren't forcing data-theme */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme]){
+    --tab-1:#38bdf8;  /* sky-400 */
+    --tab-2:#22d3ee;  /* cyan-400 */
+    --tab-text:#e6f6fb;
+  }
+}
+
+/* ========= Nav tab palette (SUNSET theme) ========= */
+:root[data-theme="sunset"]{
+  --tab-1: #fb7185;   /* rose-400 */
+  --tab-2: #f97316;   /* orange-500 */
+  --tab-text: #7f1d1d;/* warm maroon text */
+}
+
+/* Optional auto dark-mode base (not used when data-theme is set) */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0b1220; --bg-muted:#0f172a;
+    --panel:#0f172a; --panel-elev:#101827;
+    --text:#ffffff; --muted:#ffffff; --subtle:#ffffff;
+    --hairline:#1f2937; --ring:rgba(56,189,248,.35);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.6);
+    --shadow-md:0 10px 24px rgba(0,0,0,.45);
+    --bg-gradient: linear-gradient(180deg, #0b1220 0%, #0b1220 100%);
+    --bg-dark:#0b1220; --muted-text:#ffffff;
+  }
+}
+
+/* ---------- 3) Base Typography -------------------------------------------- */
+body{
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg-gradient, var(--bg));
+  color: var(--text);
+}
+
+.container{max-width:var(--container);margin-inline:auto;padding-inline:var(--space-4)}
+.section{padding-block:var(--space-12)}
+
+h1{font-size:clamp(2rem, 4vw + 1rem, 3.125rem);line-height:1.1;letter-spacing:-.01em}
+h2{font-size:clamp(1.5rem, 1.5vw + 1rem, 2rem);line-height:1.15;margin-bottom:var(--space-4)}
+h3{font-size:1.25rem;line-height:1.2;margin-bottom:var(--space-3)}
+p{color:var(--muted)}
+.lead{font-size:1.125rem;color:var(--muted)}
+.small{font-size:.875rem;color:var(--subtle)}
+
+.kicker{font-size:.75rem;text-transform:uppercase;letter-spacing:.2em;color:var(--subtle);margin-bottom:var(--space-2)}
+
+/* links */
+a{color:var(--accent)}
+a:hover{color:var(--accent-2)}
+
+/* lists */
+ul{padding-left:1.25rem}
+li{margin:.25rem 0}
+
+/* ---------- 4) Layout / Header / Nav -------------------------------------- */
+.header{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:saturate(1.2) blur(6px);
+  background:color-mix(in oklab, var(--bg) 80%, transparent);
+  border-bottom:1px solid var(--hairline);
+}
+.nav{display:flex;gap:1.25rem;align-items:center}
+.nav a{color:var(--subtle);text-decoration:none}
+.nav a:hover{color:var(--text)}
+
+/* ---------- 5) Components -------------------------------------------------- */
+.card{background:var(--panel);border:1px solid var(--hairline);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+.card--elev{box-shadow:var(--shadow-md)}
+.card__body{padding:var(--space-5)}
+.card__title{font-weight:700;color:var(--text)}
+
+.badge{display:inline-flex;align-items:center;gap:.4rem;border-radius:999px;padding:.25rem .6rem;font-size:.75rem;font-weight:600;border:1px solid var(--hairline);background:var(--bg-muted);color:var(--text)}
+.badge--accent{background:color-mix(in oklab, var(--accent) 12%, var(--bg));border-color:color-mix(in oklab, var(--accent) 30%, var(--hairline));color:var(--brand)}
+
+.btn{--btn-bg:var(--brand);--btn-fg:#fff;--btn-bd:transparent;display:inline-flex;align-items:center;gap:.5rem;border-radius:calc(var(--radius)/1.25);padding:.625rem 1rem;font-weight:600;border:1px solid var(--btn-bd);background:var(--btn-bg);color:var(--btn-fg);text-decoration:none;cursor:pointer}
+.btn:hover{filter:brightness(1.05)}
+.btn:focus-visible{outline:3px solid var(--ring);outline-offset:2px}
+.btn--ghost{--btn-bg:transparent;--btn-fg:var(--text);--btn-bd:var(--hairline)}
+.btn--accent{--btn-bg:var(--accent)}
+
+.table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.table th{font-size:.75rem;text-transform:uppercase;color:var(--subtle);font-weight:700;letter-spacing:.06em}
+.table tr{background:var(--panel);border:1px solid var(--hairline)}
+.table td,.table th{padding:.75rem 1rem}
+.table tr{border-radius:var(--radius)}
+.table tr td:first-child{border-top-left-radius:var(--radius);border-bottom-left-radius:var(--radius)}
+.table tr td:last-child{border-top-right-radius:var(--radius);border-bottom-right-radius:var(--radius)}
+.table .num{text-align:right}
+
+.alert{border:1px solid var(--hairline);background:var(--bg-muted);border-radius:var(--radius);padding:var(--space-4)}
+.alert--success{border-color:color-mix(in oklab, var(--success) 40%, var(--hairline));background:color-mix(in oklab, var(--success) 8%, var(--bg-muted))}
+.alert--warn{border-color:color-mix(in oklab, var(--warning) 40%, var(--hairline));background:color-mix(in oklab, var(--warning) 8%, var(--bg-muted))}
+
+/* hero */
+.hero{background:linear-gradient(135deg, #e0f2fe 0%, #ecfeff 35%, #ecfdf5 100%)}
+.hero__panel{border-radius:var(--radius-xl);background:var(--panel);box-shadow:var(--shadow-md);border:1px solid var(--hairline);padding:var(--space-5)}
+
+/* footer */
+.footer{border-top:1px solid var(--hairline);padding-block:var(--space-8)}
+
+/* ---------- 6) Utilities --------------------------------------------------- */
+.grid{display:grid;gap:var(--space-4)}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+@media (max-width: 1024px){.grid-3,.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width: 640px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+.stack-sm>*+*{margin-top:var(--space-2)}
+.stack>*+*{margin-top:var(--space-4)}
+.stack-lg>*+*{margin-top:var(--space-6)}
+
+.pad-2{padding:var(--space-2)}
+.pad-4{padding:var(--space-4)}
+.pad-6{padding:var(--space-6)}
+.round{border-radius:var(--radius)}
+.round-lg{border-radius:var(--radius-lg)}
+.round-xl{border-radius:var(--radius-xl)}
+.shadow-sm{box-shadow:var(--shadow-sm)}
+.shadow-md{box-shadow:var(--shadow-md)}
+.border{border:1px solid var(--hairline)}
+.muted{color:var(--subtle)}
+.center{display:grid;place-items:center}
+
+/* widths */
+.w-full{width:100%}
+.max-w-prose{max-width:70ch}
+
+/* spacing helpers */
+.mt-2{margin-top:var(--space-2)}
+.mt-4{margin-top:var(--space-4)}
+.mt-6{margin-top:var(--space-6)}
+.mb-2{margin-bottom:var(--space-2)}
+.mb-4{margin-bottom:var(--space-4)}
+.mb-6{margin-bottom:var(--space-6)}
+.py-6{padding-block:var(--space-6)}
+.py-8{padding-block:var(--space-8)}
+
+/* ---------- 7) Forms ------------------------------------------------------- */
+.input,select,textarea{width:100%;background:var(--panel);border:1px solid var(--hairline);border-radius:var(--radius-sm);padding:.625rem .75rem;color:var(--text)}
+.input:focus,select:focus,textarea:focus{outline:3px solid var(--ring);outline-offset:1px}
+.label{display:block;font-weight:600;color:var(--text);margin-bottom:.5rem}
+
+/* ---------- 8) Media & Figures ------------------------------------------- */
+.figure{display:grid;gap:.5rem}
+.figure figcaption{font-size:.875rem;color:var(--subtle)}
+
+/* ---------- 9) Animations (reduced-motion aware) -------------------------- */
+@media (prefers-reduced-motion: no-preference){
+  .fade-in{animation:fade-in .5s ease both}
+  .rise{animation:rise .6s ease both}
+  @keyframes fade-in{from{opacity:0}to{opacity:1}}
+  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+}
+
+/* ---------- 10) Print Styles ---------------------------------------------- */
+@media print{
+  :root{--bg:#fff;--panel:#fff;--text:#000;--muted:#000;--hairline:#bbb}
+  .header,.nav,.btn,.footer{display:none!important}
+  .card,.alert{border:1px solid #bbb;box-shadow:none}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.8em}
+}
+
+/* ---------- Header Alignment Fix ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: saturate(1.2) blur(6px);
+  background: color-mix(in oklab, var(--bg) 85%, transparent);
+  border-bottom: 1px solid var(--hairline);
+  padding-block: 1rem;
+}
+
+/* Title block spacing */
+.header h1 { margin-top: .5rem; font-size: 2rem; }
+.header .small { font-size: 1rem; }
+
+/* Navigation alignment */
+.nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.nav a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--subtle);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.nav a:hover { color: var(--accent); }
+
+.header nav {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: .75rem;
+  border-top: 1px solid var(--hairline);
+  padding-top: .75rem;
+}
+
+/* === GALLERY IMAGE FIXES === */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+  justify-items: center;
+  margin-top: 2rem;
+}
+.gallery figure {
+  background: #101418;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  max-width: 420px;
+}
+.gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+  max-height: 300px;
+  background: #0b0e12;
+  margin-bottom: .5rem;
+}
+.gallery figcaption { font-size: .85rem; color: #aaa; line-height: 1.4; text-align: left; }
+
+/* === INLINE FIGURE STYLING (for grid sections) === */
+.grid figure img { width: 100%; height: auto; border-radius: 8px; object-fit: contain; max-height: 320px; }
+.grid figure { text-align: center; margin: 0 auto; }
+.grid figure figcaption { font-size: .85rem; color: #aaa; margin-top: .3rem; }
+
+/* Make tipping-bucket diagram slightly larger */
+.tipping-diagram img { width: 100%; max-width: 650px; border-radius: 10px; object-fit: contain; margin: 0 auto; display: block; }
+
+/* Make ultrasonic JSN-SR04T image circular */
+.sensor-circle img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  background-color: #0b0e12;
+  padding: .5rem;
+}
+
+/* ESP32 controller photo styling */
+.controller-img { display: flex; justify-content: center; align-items: center; margin: 2rem auto; text-align: center; }
+.controller-img img {
+  width: clamp(320px, 60%, 520px);
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  background: #0b0e12;
+  padding: .75rem;
+  margin-bottom: .5rem;
+  transition: transform .2s ease-in-out;
+}
+.controller-img img:hover { transform: scale(1.03); }
+.controller-img figcaption { font-size: .9rem; color: #aaa; text-align: center; margin-top: .4rem; max-width: 520px; margin-inline: auto; }
+
+/* === Executive Summary (rubric) helpers =============================== */
+.exec-summary { padding-block: 1.25rem; }
+.h1{ font-family: Calibri, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; font-size: 16pt; font-weight: 700; color: var(--text); margin: 0 0 .5rem 0; }
+.h2{ font-family: Calibri, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; font-size: 12pt; font-weight: 700; color: var(--text); margin: 1.25rem 0 .25rem 0; }
+.snapshot{ font-style: italic; font-size: 11pt; color: var(--text); margin-bottom: .5rem; }
+
+.italics { font-style: italic; }
+.justified {
+  text-align: justify;
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 11pt;
+  color: var(--text);
+  line-height: 1.5;
+  margin-top: .25rem;
+  margin-bottom: .5rem;
+}
+
+/* Meta row */
+.meta-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .5rem;
+  margin: .75rem 0 1rem;
+  padding: .5rem .75rem;
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.meta-label{ font-weight: 700; color: var(--text); margin-right: .4rem; }
+
+/* Body text inside exec summary */
+.exec-summary p{ font-size: 11pt; color: var(--text); margin: .25rem 0 .5rem; }
+
+/* Bullets */
+.bullets{
+  margin: .25rem 0 .75rem 1.25rem;
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 11pt;
+  color: var(--text);
+  text-align: justify;
+  line-height: 1.5;
+}
+.bullets li{ margin: .25rem 0; color: var(--text); }
+
+/* Figures in the summary */
+.figure{ margin: .75rem 0; text-align: center; }
+.figure img{ max-width: 100%; height: auto; border-radius: .5rem; border: 1px solid var(--hairline); }
+.figure figcaption{ font-size: 10pt; color: var(--subtle); margin-top: .25rem; }
+
+/* === HEADER AS PROJECT META =========================================== */
+.site-header{ background: var(--panel); border-bottom: 1px solid var(--hairline); padding: var(--space-6) var(--space-4); box-shadow: var(--shadow-sm); }
+.header-meta{ text-align: center; margin-bottom: var(--space-4); }
+.site-title{ font-size: 1.75rem; font-weight: 700; color: var(--text); margin-bottom: .25rem; }
+.meta-sub{ font-size: 0.95rem; color: var(--muted); line-height: 1.4; }
+.meta-sub .keywords{ font-weight: 600; color: var(--text); }
+
+/* === LANDING PAGE LAYOUT POLISH ===================================== */
+.exec-summary { display: flex; flex-direction: column; gap: var(--space-6); margin-top: var(--space-8); }
+
+/* section cards */
+.section-card {
+  background: color-mix(in oklab, var(--panel) 98%, var(--bg-muted));
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5) var(--space-6);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.section-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+/* inner headings & spacing */
+.section-card h2 { margin-top: 0; margin-bottom: var(--space-3); }
+.section-card p + ul, .section-card ul + p { margin-top: var(--space-3); }
+
+/* gallery alignment fix */
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4); margin-top: var(--space-4); }
+.gallery figure { background: var(--bg-muted); border-radius: var(--radius); padding: var(--space-3); text-align: center; }
+.gallery figcaption { font-size: .85rem; color: var(--subtle); margin-top: .5rem; }
+
+.header h1{
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16pt !important;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  margin: 0;
+  color: var(--text);
+}
+
+/* Snapshot line */
+.header .small{
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 11pt !important;
+  font-style: italic;
+  line-height: 1.4;
+  margin-top: .25rem;
+  margin-bottom: .75rem;
+  color: var(--text);
+}
+
+/* Optional: nav body size */
+.header .nav a{ font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; font-size: 11pt; }
+
+/* === Eyebrow / section labels ===================================== */
+.eyebrow{
+  font-size:.75rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-weight:600;
+  color:var(--subtle);
+  margin-bottom:.5rem;
+  display:block;
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 12pt !important;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+  text-align: left;
+}
+.eyebrow--bar{ position:relative; padding-left:.75rem; }
+.eyebrow--bar::before{
+  content:"";
+  position:absolute;left:0;top:.2em;bottom:.2em;
+  width:3px;border-radius:2px;
+  background:color-mix(in oklab, var(--accent-2) 70%, var(--hairline));
+}
+
+.section-card .eyebrow + .h2, .section-card .eyebrow + h2{ margin-top:0; }
+.exec-summary:first-of-type { padding-top: 0 !important; margin-top: 0 !important; }
+.meta-grid { border-top: 2px solid color-mix(in oklab, var(--accent-2) 40%, transparent); }
+.exec-summary > .eyebrow{ display:block; text-align:left; font-size:.8rem; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--subtle); margin-bottom:.75rem; padding-left:.75rem; position:relative; }
+.exec-summary > .eyebrow::before{ content:""; position:absolute; left:0; top:.25em; bottom:.25em; width:3px; border-radius:2px; background: color-mix(in oklab, var(--accent-2) 70%, var(--hairline)); display:none; }
+
+/* === Acknowledgement of Country =================================== */
+.ack-heading{
+  font-family: "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight:700; font-size:16pt; color:var(--text);
+  text-transform:none; margin-bottom:1rem; letter-spacing:.02em; display:block;
+  border-left:4px solid color-mix(in oklab, var(--accent-2) 60%, var(--hairline));
+  padding-left:.75rem;
+}
+.ack-card p{
+  font-family:"Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size:12pt; line-height:1.6; color:var(--text); text-align:justify;
+}
+
+/* === Overview Page Enhancements ===================================== */
+.eyebrow--bar { border-left: 4px solid color-mix(in oklab, var(--accent-2) 60%, var(--hairline)); padding-left: .75rem; }
+
+/* section card hover (global) */
+.section-card { background: color-mix(in oklab, var(--panel) 98%, var(--bg-muted)); border:1px solid var(--hairline); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding: var(--space-5) var(--space-6); transition: transform .25s ease, box-shadow .25s ease; }
+.section-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+/* criteria boxes */
+.criteria-box { background: var(--bg-muted); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 1.25rem 1rem; box-shadow: var(--shadow-sm); }
+.criteria-box h3 { font-family: "Calibri", system-ui, sans-serif; font-weight: 700; font-size: 12pt; color: var(--accent); margin-bottom: .25rem; }
+.criteria-box p { font-family: "Calibri", system-ui, sans-serif; font-size: 11pt; color: var(--text); margin-bottom: .4rem; text-align: justify; }
+.criteria-just { font-style: italic; color: var(--subtle); font-size: 10.5pt; }
+
+/* subtle entrance animation */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in { animation: fadein .6s ease both; }
+  @keyframes fadein { from {opacity: 0; transform: translateY(6px);} to {opacity: 1; transform: translateY(0);} }
+}
+
+/* === DESIGN SOLUTION STYLING ======================================= */
+.figure img { border-radius: var(--radius); border: 1px solid var(--hairline); box-shadow: var(--shadow-sm); margin-bottom: .5rem; }
+.figure figcaption { font-family: "Calibri", system-ui, sans-serif; font-size: 10pt; color: var(--subtle); text-align: center; line-height: 1.4; }
+h3 { font-family: "Calibri", system-ui, sans-serif; font-size: 12pt; font-weight: 700; margin-top: 1rem; color: var(--text); }
+
+/* criteria table (alt) */
+.table-matrix { width: 100%; border-collapse: collapse; margin-block: 1.25rem; font-family: "Calibri", system-ui, sans-serif; }
+.table-matrix th, .table-matrix td { border: 1px solid var(--hairline); padding: .5rem .75rem; text-align: center; }
+.table-matrix th { background: color-mix(in oklab, var(--accent-2) 20%, var(--panel)); color: var(--text); font-weight: 700; }
+.table-matrix td { background: var(--panel); color: var(--text); }
+
+/* alt style */
+.table-matrix { width: 100%; border-collapse: collapse; font-family: "Calibri", system-ui, sans-serif; font-size: 11pt; margin: 1.25rem 0; }
+.table-matrix th, .table-matrix td { border: 1px solid var(--hairline); padding: .6rem; text-align: center; }
+.table-matrix th { background: #174a57; color: white; font-weight: 600; }
+.table-matrix .option { background: #0f2e38; color: white; font-weight: 700; text-align: left; padding-left: 1rem; }
+.table-matrix td { background: #275965; color: white; }
+.matrix-score { color: #ff4a4a; font-weight: 600; }
+.table-matrix strong { color: #fff; font-size: 12pt; }
+
+/* === High-level Flow Diagram (inline SVG) ============================= */
+.flow svg { width: 100%; max-width: 980px; height: auto; margin-inline: auto; display: block; }
+.flow .node rect { fill: url(#panel); stroke: var(--hairline); stroke-width: 1.25; }
+.flow .title { font: 700 12pt "Calibri", system-ui, sans-serif; text-anchor: middle; fill: #fff; }
+.flow .item { font: 11pt "Calibri", system-ui, sans-serif; text-anchor: middle; fill: #e5e7eb; }
+.flow .badge rect { fill: rgba(255,255,255,.14); stroke: rgba(255,255,255,.35); }
+.flow .badge text { font: 700 9pt "Calibri", system-ui, sans-serif; text-anchor: middle; fill: #fff; }
+
+/* arrows */
+.flow .arrows line { stroke: #94d2ef; stroke-width: 3; marker-end: url(#arrow); }
+
+/* legend */
+.flow .legend rect { fill: #0b1220; stroke: var(--hairline); opacity: .9; }
+.flow .legend-title { font: 700 12pt "Calibri", system-ui, sans-serif; fill: #e5e7eb; }
+.flow .legend-item { font: 10.5pt "Calibri", system-ui, sans-serif; fill: #cbd5e1; }
+
+/* reduce-motion (original) */
+@media (prefers-reduced-motion:no-preference){
+  .flow .node, .flow .arrows line { transition: transform .2s ease; }
+  .flow .node:hover { transform: translateY(-2px); }
+}
+
+/* === HEADER FULL-WIDTH FIX ==================================== */
+.header { width: 100%; background-color: var(--bg-dark); }
+.header .container { max-width: none; padding: 0 2rem; margin: 0; width: 100%; }
+.nav a { padding: .5rem 1rem; text-decoration: none; color: var(--muted-text); }
+.nav a:hover { color: var(--accent); }
+
+/* === NAVIGATION INLINE FIX ===================================== */
+.nav {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.nav a { color: var(--muted-text); text-decoration: none; font-weight: 500; padding: .5rem .75rem; }
+.nav a:hover { color: var(--accent); }
+
+/* Force the sensor photos to sit side-by-side and span the full card */
+.span-2 { grid-column: 1 / -1; }
+.img-two-up{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+/* Keep 2 columns even on small screens */
+@media (max-width: 640px){ .img-two-up{ grid-template-columns: 1fr 1fr; } }
+/* Nice defaults for the pictures */
+.img-two-up .sensor img{ width: 100%; height: auto; border-radius: 8px; object-fit: cover; }
+
+/* ===================================================================== */
+/* === HOW IT WORKS stability overrides (fix hover jitter) ============= */
+.section-card.no-lift:hover { transform: none; box-shadow: var(--shadow-sm); }
+
+.flow .node, .flow .arrows line { transition: none !important; }
+.flow .node { transform-box: fill-box; transform-origin: center; }
+.flow .node:hover { transform: none !important; }
+.flow .node rect { transition: stroke .15s ease, filter .15s ease; }
+.flow .node:hover rect {
+  stroke: color-mix(in oklab, var(--accent-2) 60%, var(--hairline));
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.25));
+}
+.flow .arrows line { pointer-events: none; }
+
+/* === Section headings in white with gradient band =================== */
+.eyebrow{
+  color: #fff !important;
+  display: inline-block;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--accent) 70%, #000) 0%,
+    color-mix(in oklab, var(--accent-2) 70%, #000) 100%
+  );
+}
+/* remove the old left bar for banded headings */
+.eyebrow--bar{ border-left: 0 !important; padding-left: .75rem; }
+.eyebrow--bar::before{ display: none !important; }
+
+.header .brand-title{
+  display:inline-block;
+  font-weight:800;
+  line-height:1.05;
+  font-size:clamp(2.25rem, 5.5vw, 3.5rem) !important;
+  color:#fff;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  padding:.6rem 1.1rem;
+  border-radius:.95rem;
+  box-shadow: var(--shadow-md);
+  letter-spacing:.01em;
+}
+
+.header .brand-tagline{
+  font-size:clamp(1.05rem, 1.9vw, 1.35rem);
+  line-height:1.5;
+  color:var(--text);
+  margin-top:.55rem;
+  max-width:78ch;
+}
+/* Center the header title + tagline */
+.header .container{
+  display: grid;                /* stack brand block + nav */
+  gap: .75rem;
+}
+
+/* first child = brand block (your icon + text wrapper) */
+.header .container > div:first-child{
+  display: flex;
+  flex-direction: column;
+  align-items: center;          /* horizontal centering */
+  text-align: center;           /* center the text itself */
+}
+
+/* hide the tiny square logo so text centers perfectly */
+.header .container > div:first-child > div:first-child{
+  display: none;
+}
+
+/* keep the nav centered too */
+.header .nav{
+  justify-content: center;
+}
+/* --- Kill hover/animation on the chart card completely --- */
+.section-card.no-lift { 
+  transform: none !important; 
+  box-shadow: var(--shadow-sm) !important; 
+  contain: layout paint;              /* isolate layout to avoid reflow jitter */
+}
+.section-card.no-lift:hover { 
+  transform: none !important; 
+  box-shadow: var(--shadow-sm) !important; 
+}
+
+/* Stop any animations inside this card (e.g., .fade-in) */
+.section-card.no-lift, 
+.section-card.no-lift * {
+  animation: none !important;
+}
+
+/* Neutralize the SVG hover & transitions */
+.section-card.no-lift .flow .node,
+.section-card.no-lift .flow .arrows line {
+  transition: none !important;
+}
+.section-card.no-lift .flow .node:hover {
+  transform: none !important;
+}
+
+/* Optional: if you don't need any hover at all on the SVG, freeze it */
+.section-card.no-lift .flow svg {
+  pointer-events: none; /* remove if you plan to add interactive tooltips later */
+}
+
+/* ===== NAV BUTTON TABS ===== */
+.header .container { padding-top: .75rem; padding-bottom: .75rem; }
+.header-bar { display: grid; gap: 1rem; }
+@media (min-width: 1024px){ .header-bar { grid-template-columns: 1fr; } }
+
+.brand-left { display:flex; gap:.75rem; align-items:flex-start; }
+.brand-mark { width:2.25rem; height:2.25rem; border-radius:.75rem; background:#111827; }
+.site-title-xl { font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.25rem); font-weight: 800; color: var(--text); }
+.site-tagline { font-size: 1rem; font-style: italic; color: var(--text); margin-top: .25rem; }
+
+.nav.nav-tabs {
+  display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; justify-content:center;
+  margin-top: .75rem;
+}
+
+/* Base tab pill */
+.tab{
+  --tab-bg: color-mix(in oklab, var(--accent) 10%, var(--panel));
+  --tab-bd: color-mix(in oklab, var(--accent) 35%, var(--hairline));
+  --tab-fg: var(--brand);
+  display:inline-flex; align-items:center; gap:.4rem;
+  padding:.5rem .9rem; border-radius:999px;
+  background:var(--tab-bg); border:1px solid var(--tab-bd); color:var(--tab-fg);
+  text-decoration:none; font-weight:600; box-shadow:var(--shadow-sm);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+  white-space:nowrap;
+}
+.tab:hover{ transform: translateY(-1px); box-shadow: var(--shadow-md); filter: brightness(1.03); }
+.tab.is-active{ outline:3px solid var(--ring); outline-offset:2px; }
+
+/* Color variants */
+/* Color variants (theme-aware via --tab-* vars) */
+.tab--rose{
+  --tab-bg: color-mix(in oklab, var(--tab-1) 18%, var(--panel));
+  --tab-bd: color-mix(in oklab, var(--tab-1) 42%, var(--hairline));
+  --tab-fg: var(--tab-text);
+}
+.tab--orange{
+  --tab-bg: color-mix(in oklab, var(--tab-2) 18%, var(--panel));
+  --tab-bd: color-mix(in oklab, var(--tab-2) 42%, var(--hairline));
+  --tab-fg: var(--tab-text);
+}
+
+.tab--ghost{
+  --tab-bg: transparent; --tab-bd: var(--hairline); --tab-fg: var(--text);
+}
+
+/* Keep header tidy on tiny screens */
+@media (max-width: 480px){ .site-tagline{ display:none; } }
+
+/* ===== Header layout fixes: make the header bar actually flex ===== */
+.header > .container{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+}
+
+/* keep nav on same row as the brand, remove the top border in header */
+.header nav{
+  width:auto;              /* override earlier width:100% */
+  margin-top:0;
+  padding-top:0;
+  border-top:0;
+}
+
+/* ===== Minimal Tailwind-like utility fallbacks used in your header ===== */
+.flex{display:flex}
+.items-center{align-items:center}
+.justify-between{justify-content:space-between}
+.gap-3{gap:0.75rem}
+.py-4{padding-top:1rem; padding-bottom:1rem}
+.text-lg{font-size:1.6rem}          /* bigger title */
+.font-semibold{font-weight:600}
+.leading-none{line-height:1}
+.h-8{height:2rem}
+.w-8{width:2rem}
+.bg-slate-900{background:#0f172a}
+.text-white{color:#fff}
+.rounded-lg{border-radius:0.5rem}
+
+/* Make the brand title & tagline clearly visible */
+.header h1{
+  font-weight:800;
+  font-size:clamp(1.6rem, 2.6vw, 2.2rem);
+  line-height:1.15;
+  color:var(--text);
+  margin:0;
+}
+.header .small{
+  font-size:1rem;
+  color:var(--muted);
+  margin-top:.35rem;
+}
+
+/* ====== HERO TITLE BAND (forces visibility) ===================== */
+.site-hero{
+  background: color-mix(in oklab, var(--bg) 92%, var(--accent-2) 8%);
+  border-bottom: 1px solid var(--hairline);
+  padding: 1.25rem 0 1.5rem;
+}
+
+.site-hero__wrap{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .85rem 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-mark{
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--brand);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Hard override any previous tiny-title rule in the header */
+.header h1.site-title-xl,
+.site-hero .site-title-xl{
+  font-family: "Calibri", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  font-size: clamp(2.2rem, 4.8vw, 3.2rem) !important;
+  margin: 0 .1rem .15rem !important;
+  color: var(--text) !important;
+  letter-spacing: -.01em;
+}
+
+.site-hero .site-tagline{
+  font-family: "Calibri", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(1.05rem, 1.9vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 88ch;
+}
+
+/* Center the whole block on narrow and wide screens */
+@media (max-width: 900px){
+  .site-hero__wrap{ grid-template-columns: 1fr; justify-items: center; text-align: center; }
+}
+
+/* Optional: make the header itself a bit lighter so the hero pops */
+.header{
+  background: color-mix(in oklab, var(--bg) 88%, transparent);
+}
+
+/* ===== Title band above nav ===== */
+.title-band{
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--accent-2) 16%, var(--bg)) 0%,
+    color-mix(in oklab, var(--accent-2) 6%, var(--bg)) 70%
+  );
+  border-bottom: 1px solid var(--hairline);
+  padding: 1.1rem 0 .9rem;
+}
+
+/* Big, centered title */
+.site-title-xl{
+  font-family: "Calibri", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  font-size: clamp(2.2rem, 4.8vw, 3.2rem) !important;
+  margin: 0 0 .2rem 0 !important;
+  color: var(--text) !important;
+  text-align: center;
+  letter-spacing: -.01em;
+}
+
+/* Centered tagline under the title */
+.site-tagline{
+  font-family: "Calibri", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(1.05rem, 1.9vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 90ch;
+  margin: 0 auto;          /* center */
+  text-align: center;      /* center */
+}
+
+/* Keep the buttons (tabs) on their own row and centered */
+.nav-tabs{
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem .75rem;
+  justify-content: center;  /* center the buttons under the title */
+  padding: .75rem 0 0;
+}
+
+/* Optional: slightly bolder active tab for clarity */
+.tab.is-active{
+  outline: 2px solid color-mix(in oklab, var(--accent-2) 40%, transparent);
+}
+
+/* === Horizontal taskbar (one row) ==================================== */
+.header .nav.nav-tabs{
+  /* override the base .nav flex rule */
+  display: grid !important;
+  width: 100%;
+  gap: .6rem;
+
+  /* 10 buttons = 10 equal columns (adjust if you add/remove items) */
+  grid-template-columns: repeat(10, 1fr);
+
+  justify-items: stretch;
+  align-items: stretch;
+
+  /* undo nowrap/scroll from base .nav */
+  white-space: normal;
+  overflow: visible;
+}
+
+.header .nav.nav-tabs .tab{
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  min-height: 38px;
+  text-align: center;
+}
+
+/* Responsive tweaks: allow 2 rows on smaller screens */
+@media (max-width: 1100px){
+  .header .nav.nav-tabs{ grid-template-columns: repeat(5, 1fr); }
+}
+@media (max-width: 640px){
+  .header .nav.nav-tabs{ grid-template-columns: repeat(2, 1fr); }
+}
+/* === Bigger horizontal taskbar buttons ================================== */
+:root{
+  --tab-height: 48px;
+  --tab-font: 1rem;           /* ~16px */
+  --tab-gap: .75rem;
+}
+
+@media (min-width: 1280px){
+  :root{
+    --tab-height: 52px;
+    --tab-font: 1.05rem;
+    --tab-gap: .85rem;
+  }
+}
+
+.header .nav.nav-tabs{
+  display: grid !important;                 /* force grid over any .nav flex */
+  grid-template-columns: repeat(10, minmax(9.5rem, 1fr));
+  gap: var(--tab-gap);
+  width: 100%;
+  align-items: stretch;
+  justify-items: stretch;
+  white-space: normal;
+  overflow: visible;
+}
+
+.header .nav.nav-tabs .tab{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: var(--tab-height);
+  padding: .65rem 1rem;
+  font-size: var(--tab-font);
+  font-weight: 700;
+  border-radius: 999px;                      /* big pill */
+  border-width: 2px;                         /* beefier outline */
+  text-align: center;
+  line-height: 1.1;
+  box-shadow: 0 1px 0 rgba(0,0,0,.06);
+}
+
+.header .nav.nav-tabs .tab:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+
+/* Responsive: allow wrap to two rows if space gets tight */
+@media (max-width: 1100px){
+  .header .nav.nav-tabs{ grid-template-columns: repeat(5, minmax(9.5rem, 1fr)); }
+}
+@media (max-width: 640px){
+  .header .nav.nav-tabs{ grid-template-columns: repeat(2, minmax(9.5rem, 1fr)); }
+}
+
+/* Footer button layout */
+.footer .footer-tabs{
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.footer .footer-tabs .tab{
+  min-height: 36px;
+  padding: .5rem .9rem;
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+/* === Bill of Materials table (borders) =============================== */
+.table--bom{
+  width: 100%;
+  border-collapse: collapse !important;   /* override .table spacing */
+  border-spacing: 0 !important;
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  overflow: hidden; /* keeps the rounded corners */
+}
+
+.table--bom th,
+.table--bom td{
+  border: 1px solid var(--hairline);
+  padding: .65rem .85rem;
+  text-align: left;
+  color: var(--text);
+}
+
+.table--bom thead th{
+  background: color-mix(in oklab, var(--accent-2) 18%, var(--panel));
+  font-weight: 700;
+}
+
+.table--bom tbody tr:nth-child(even) td{
+  background: color-mix(in oklab, var(--panel) 96%, var(--bg-muted));
+}
+
+/* optional: make wide tables scroll on mobile */
+.table-wrap{ overflow-x: auto; }
+
+/* === Boxed bullets (convert circle bullets into text boxes) ============= */
+/* Applies to: any .bullets list, any .list-disc list, and most ULs inside section cards */
+.section-card ul:not(.no-box),
+.bullets,
+.list-disc{
+  list-style: none;           /* remove discs */
+  padding-left: 0;
+  margin-left: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* Each bullet becomes a small card */
+.section-card ul:not(.no-box) > li,
+.bullets li,
+.list-disc li{
+  position: relative;
+  background: color-mix(in oklab, var(--panel) 96%, var(--bg));
+  border: 1px solid var(--hairline);
+  border-radius: .75rem;
+  padding: .65rem .9rem .65rem 1.1rem;  /* extra left space for accent bar */
+  color: var(--text);
+  line-height: 1.55;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Accent bar on the left (replaces the dot) */
+.section-card ul:not(.no-box) > li::before,
+.bullets li::before,
+.list-disc li::before{
+  content: "";
+  position: absolute;
+  left: .5rem;
+  top: .5rem;
+  bottom: .5rem;
+  width: 4px;
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--accent-2) 70%, var(--hairline));
+}
+
+/* Nested lists inside a box also become boxes, just a bit tighter */
+.section-card ul:not(.no-box) > li > ul,
+.bullets li > ul,
+.list-disc li > ul{
+  margin-top: .4rem;
+}
+.section-card ul:not(.no-box) > li > ul > li,
+.bullets li > ul > li,
+.list-disc li > ul > li{
+  padding: .5rem .75rem .5rem 1rem;
+  border-radius: .6rem;
+  background: color-mix(in oklab, var(--panel) 94%, var(--bg));
+}
+
+/* === Brand text styles (Word-style typography) === */
+
+.brand-title {
+  font-family: Calibri, "Segoe UI", sans-serif;
+  font-weight: bold;
+  font-size: 16pt;        /* Matches Heading 1 size */
+  color: var(--text, #fff);
+  margin: 0 0 0.4rem 0;
+  line-height: 1.3;
+}
+
+.brand-tagline {
+  font-family: Calibri, "Segoe UI", sans-serif;
+  font-size: 11pt;        /* Matches Normal text */
+  font-style: italic;
+  color: var(--subtle, rgba(255,255,255,0.85));
+  line-height: 1.5;
+  margin: 0;
+  max-width: 60ch;
+}
+
+/* ===== HEADER LAYOUT ===== */
+
+.site-header {
+  background: var(--bg, #0b1220);
+  color: var(--text, #fff);
+  border-bottom: 1px solid var(--hairline, rgba(255,255,255,.08));
+  padding-block: 1.5rem;
+}
+
+.site-header__inner {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Mobile: 1 column
+   Desktop (min 900px): 2 columns
+*/
+@media (min-width: 900px) {
+  .site-header__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+/* Brand block (left side) */
+.site-header__brand {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.brand-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: .5rem;
+  background: var(--panel, rgba(255,255,255,0.07));
+  box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 16px 40px rgba(0,0,0,.8);
+  flex-shrink: 0;
+  font-weight: 600;
+  color: var(--text,#fff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .8rem;
+  line-height: 1;
+}
+
+/* if you want initials inside the square, uncomment and edit:
+.brand-icon::after {
+  content: "EWS";
+}
+*/
+
+.brand-text {
+  max-width: 45ch;
+}
+
+.brand-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text,#fff);
+  margin: 0 0 .5rem 0;
+  text-wrap: balance;
+}
+
+.brand-tagline {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--subtle, rgba(255,255,255,.8));
+  margin: 0;
+  text-wrap: balance;
+  max-width: 60ch;
+}
+
+/* === FINAL HEADER STYLE (matches your 2nd screenshot) ================= */
+
+/* Whole header bar */
+.header {
+  background-color: var(--bg, #0b1220);
+  color: var(--text, #fff);
+  border-bottom: 1px solid var(--hairline, rgba(255,255,255,0.15));
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+/* Contained width */
+.header-inner {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Title */
+.header-title {
+  font-family: Calibri, "Segoe UI", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 16pt;      /* you asked: Heading 1, Calibri 16pt bold */
+  line-height: 1.2;
+  color: var(--text, #fff);
+  margin: 0 0 .5rem 0;
+}
+
+/* Tagline */
+.header-tagline {
+  font-family: Calibri, "Segoe UI", system-ui, sans-serif;
+  font-size: 11pt;      /* you asked: Normal text, Calibri 11pt italics */
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--subtle, rgba(255,255,255,0.85));
+  max-width: 90ch;
+  margin: 0 0 1rem 0;
+}
+
+/* Divider line under the tagline */
+.header-divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  margin: 0 0 1rem 0;
+}
+
+/* Navigation row */
+.header-nav {
+  display: flex;
+  flex-wrap: nowrap;          /* force all links on one line */
+  gap: 2rem;
+  white-space: nowrap;        /* don't let them wrap to the next line */
+  overflow-x: auto;           /* if the screen is too narrow, allow sideways scroll
+                                 instead of dropping to 2nd row */
+  padding-bottom: .5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar in most browsers (still scrolls on trackpad if needed) */
+.header-nav::-webkit-scrollbar {
+  display: none;
+}
+.header-nav {
+  scrollbar-width: none;
+}
+
+/* Links */
+.header-nav a {
+  font-family: Calibri, "Segoe UI", system-ui, sans-serif;
+  font-size: 11pt;
+  font-weight: 500;
+  color: var(--text, #fff);
+  text-decoration: none;
+  line-height: 1.4;
+}
+.header-nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--accent, #1e40af);
+}
+
+/* kill old header flex that tried to do left/right columns */
+.header > .container,
+.header .container.flex,
+.header .container.flex.items-center {
+  all: unset;
+}
+
+#theme-toggle {
+  position: absolute;
+  top: 1rem;       /* distance from top */
+  left: 1rem;      /* distance from left */
+  z-index: 10;     /* ensures it stays above header content */
+  
+  font-family: "Calibri", "Segoe UI", sans-serif;
+  font-size: 11pt;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#theme-toggle:hover {
+  background: color-mix(in oklab, var(--accent-2) 12%, var(--bg));
+  box-shadow: var(--shadow-sm);
+}
+
+/* Make sure header is relatively positioned for absolute child */
+.header {
+  position: relative;
+}

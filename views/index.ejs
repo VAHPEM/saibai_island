@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Saibai Island Early Warning System — EWB Challenge 2025 (UTS Group 1)">
+    <title><%= title || 'Saibai Early Warning System' %></title>
+    <!-- Apply saved theme early -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('ews-theme'); // 'sunset' or 'default'
+          if (saved === 'default') {
+            document.documentElement.removeAttribute('data-theme');
+          } else if (saved) {
+            document.documentElement.setAttribute('data-theme', saved);
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="stylesheet" href="/main.css" />
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner container">
+        <div class="header-top">
+          <h1 class="header-title">Saibai Early Warning System</h1>
+          <p class="header-tagline">
+            A solar-powered, hyper-local early warning system for Saibai Island that measures real tide height and rainfall,
+            then auto-pushes bilingual alerts via PA/sirens, SMS, and radio within seconds.
+          </p>
+        </div>
+        <button id="theme-toggle" class="tab tab--ghost" type="button" aria-label="Toggle color theme">
+          Theme: Light
+        </button>
+      </div>
+
+      <hr class="header-divider"></hr>
+    
+      <nav class="header-nav">
+        <a href="/">Executive Summary</a>
+        <a href="/group_declaration">Group Declaration</a>
+        <a href="/overview">Overview</a>
+        <a href="/design-solution">Design Solution</a>
+        <a href="/prototype">Prototype</a>
+        <a href="/implementation">Implementation</a>
+        <a href="/cost">Cost &amp; Funding</a>
+        <a href="/considerations">Other Considerations</a>
+        <a href="/references">References</a>
+        <a href="/appendices">Appendices</a>
+      </nav>
+    </header>
+
+    <main class="container section">
+      <%- body %>
+    </main>
+
+    <footer class="footer">
+      <div class="container flex flex-wrap items-center justify-between small">
+        <p>
+          © <%= new Date().getFullYear() %> Saibai EWS — UTS EWB Challenge<br>
+          Developed by <strong>Pham Anh Ve</strong> | Contact:
+          <a href="tel:+61414908302" class="footer-link">+61 414 908 302</a><br>
+          Edited by <strong>Nguyen Lam Thanh Dat</strong> |
+          <a href="tel:+61489019118" class="footer-link">+61 489 019 118</a>
+        </p>
+        <nav class="nav">
+          <a href="/contact">Contact</a>
+          <a href="/appendices">Appendices</a>
+        </nav>
+      </div>
+    </footer>
+    <script>
+      (function () {
+        var KEY = 'ews-theme';
+        var root = document.documentElement;
+        var btn  = document.getElementById('theme-toggle');
+
+        function currentTheme() { return root.getAttribute('data-theme') || 'default'; }
+        function setTheme(next) {
+          if (next === 'default') { root.removeAttribute('data-theme'); localStorage.setItem(KEY, 'default'); }
+          else { root.setAttribute('data-theme', next); localStorage.setItem(KEY, next); }
+          btn.textContent = next === 'sunset' ? 'Theme: Sunset' : 'Theme: Default';
+        }
+
+        if (btn) {
+          btn.textContent = currentTheme() === 'sunset' ? 'Theme: Sunset' : 'Theme: Default';
+          btn.addEventListener('click', function () {
+            setTheme(currentTheme() === 'sunset' ? 'default' : 'sunset');
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
