@@ -10,6 +10,7 @@ import referencesRouter from "./references.js";
 import groupDeclarationRouter from "./group_declaration.js";
 import designSolutionRouter from "./design_solution.js";
 import otherConsiderationsRouter from "./other_considerations.js";
+import appendicesRouter from "./appendices.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -117,6 +118,8 @@ app.use(groupDeclarationRouter);
 app.use(designSolutionRouter);
 
 app.use(otherConsiderationsRouter);
+
+app.use(appendicesRouter);
 
 // (Optional) stub routes so your nav doesn’t 404 while you fill pages
 app.get("/overview", (req, res) =>
