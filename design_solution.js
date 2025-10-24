@@ -7,8 +7,8 @@ router.get("/design-solution", (req, res) => {
   const body = `
   <section class="exec-summary">
 
-    <!-- Section 5. Design Solution Options -->
-    <span class="eyebrow eyebrow--bar">5. DESIGN SOLUTION OPTIONS</span>
+    <!-- Section 6. Design Solution Options -->
+    <span class="eyebrow eyebrow--bar">6. DESIGN SOLUTION OPTIONS</span>
     <div class="section-card fade-in">
       <p class="justified">
         In response to the challenges identified on Saibai Island, three distinct design options were considered during the ideation stage.
@@ -19,7 +19,7 @@ router.get("/design-solution", (req, res) => {
     </div>
 
     <!-- Option 1 -->
-    <span class="eyebrow eyebrow--bar">5.1.1 DESIGN OPTION 1 — Local Tide/Rain IoT Sensors + Auto Alerts</span>
+    <span class="eyebrow eyebrow--bar">6.1.1 DESIGN OPTION 1 — Local Tide/Rain IoT Sensors + Auto Alerts</span>
     <div class="section-card fade-in">
       <p class="justified">
         This design involves deploying <strong>solar-powered IoT sensor stations</strong> equipped with an ultrasonic tide sensor (JSN-SR04T)
@@ -34,7 +34,7 @@ router.get("/design-solution", (req, res) => {
     </div>
 
     <!-- Option 2 -->
-    <span class="eyebrow eyebrow--bar">5.1.2 DESIGN OPTION 2 — Bilingual Multi-Channel Warning Network</span>
+    <span class="eyebrow eyebrow--bar">6.1.2 DESIGN OPTION 2 — Bilingual Multi-Channel Warning Network</span>
     <div class="section-card fade-in">
       <p class="justified">
         This option focuses on <strong>enhancing communication redundancy</strong> through multi-channel alert broadcasting.
@@ -49,7 +49,7 @@ router.get("/design-solution", (req, res) => {
     </div>
 
     <!-- Option 3 -->
-    <span class="eyebrow eyebrow--bar">5.1.3 DESIGN OPTION 3 — VHF Marine + Radio Cut-ins + Loudhailer System</span>
+    <span class="eyebrow eyebrow--bar">6.1.3 DESIGN OPTION 3 — VHF Marine + Radio Cut-ins + Loudhailer System</span>
     <div class="section-card fade-in">
       <p class="justified">
         This approach utilises <strong>existing VHF marine radio frequencies and 4MW broadcast radio cut-ins</strong> to deliver emergency alerts,
@@ -64,7 +64,7 @@ router.get("/design-solution", (req, res) => {
 
     <!-- Design Selection -->
     <!-- Design Selection -->
-<span class="eyebrow eyebrow--bar">5.2 DESIGN SELECTION — Decision Matrix</span>
+<span class="eyebrow eyebrow--bar">6.2 DESIGN SELECTION — Decision Matrix</span>
 <div class="section-card fade-in">
   <p class="justified">
     To select the most suitable design for Saibai Island, all three options were evaluated using the five
@@ -181,8 +181,8 @@ router.get("/design-solution", (req, res) => {
 </div>
 
     <!-- Detailed Design -->
-<span class="eyebrow eyebrow--bar">5.3. DETAILED DESIGN — SELECTED SOLUTION</span>
-<div class="section-card fade-in">
+<span class="eyebrow eyebrow--bar">6.3. DETAILED DESIGN — SELECTED SOLUTION</span>
+<div class="section-card no-lift">
   <p class="justified">
     The selected design consists of two pilot <strong>IoT-based early warning stations</strong> — 
     one near the jetty and another near the airstrip. Each unit integrates a waterproof ultrasonic tide sensor 
