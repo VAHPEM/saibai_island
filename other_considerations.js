@@ -6,7 +6,7 @@ const router = Router();
 router.get("/considerations", (req, res) => {
   const body = `
   <section class="section">
-    <p class="kicker">7. Other considerations</p>
+    <p class="kicker">Other considerations</p>
     <h2 class="mb-4">Community, environment & operations</h2>
 
     <div class="grid grid-3">
